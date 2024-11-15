@@ -22,9 +22,9 @@
 
 // #################################################
 
-// #include <stdio.h>
 #include "MateusMatos20241160011.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
+#include <string.h>
 
 DataQuebrada quebraData(char data[]);
 
@@ -216,7 +216,33 @@ int q3(char *texto, char c, int isCaseSensitive) {
 
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30]) {
-  int qtdOcorrencias = -1;
+  int qtdOcorrencias = 0;
+  int ultimaPos = 0;
+
+  int comprimentoTexto = strlen(strTexto);
+  int comprimentoBusca = strlen(strBusca);
+  char *tempStr = (char *) malloc ((comprimentoBusca + 1) * sizeof(char));
+
+  int i = 0;
+  while (i < comprimentoTexto) {
+    if (strTexto[i] == strBusca[0]) {
+        // Copia substring do tamanho de strBusca para tempStr a partir da posição atual de i
+        strncpy(tempStr, &strTexto[i], comprimentoBusca);
+
+        if (strcmp(tempStr, strBusca) == 0) {
+            qtdOcorrencias++;
+
+            posicoes[ultimaPos] = i + 1; // Contagem começa a partir de 1
+            posicoes[ultimaPos + 1] = i + comprimentoBusca;
+            ultimaPos += 2;
+
+            i += comprimentoBusca;
+            continue;
+        }
+    }
+
+    i++;
+  }
 
   return qtdOcorrencias;
 }
