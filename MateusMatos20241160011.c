@@ -12,10 +12,10 @@
 //  trabalho
 
 //  ----- Dados do Aluno -----
-//  Nome:
-//  email:
-//  Matrícula:
-//  Semestre:
+//  Nome: Mateus da Fonseca Matos
+//  email: 20241160011@ifba.edu.br
+//  Matrícula: 20241160011
+//  Semestre: 2024.2
 
 //  Copyright © 2016 Renato Novais. All rights reserved.
 // Última atualização: 07/05/2021 - 19/08/2016
@@ -123,8 +123,6 @@ int q1(char data[]) {
  com os valores correspondentes.
  */
 DiasMesesAnos q2(char datainicial[], char datafinal[]) {
-
-  // calcule os dados e armazene nas três variáveis a seguir
   DiasMesesAnos dma;
 
   if (q1(datainicial) == 0) {
@@ -134,11 +132,37 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]) {
     dma.retorno = 3;
     return dma;
   } else {
-    // verifique se a data final não é menor que a data inicial
+    DataQuebrada dmaInicial = quebraData(datainicial);
+    DataQuebrada dmaFinal = quebraData(datafinal);
 
-    // calcule a distancia entre as datas
+    int difAnos = dmaFinal.iAno - dmaInicial.iAno;
+    int difMeses = dmaFinal.iMes - dmaInicial.iMes;
+    int difDias = dmaFinal.iDia - dmaInicial.iDia;
 
-    // se tudo der certo
+    if ((difAnos < 0) || (difAnos == 0 && difMeses < 0) ||
+        (difAnos == 0 && difMeses == 0 && difDias < 0)) {
+      dma.retorno = 4;
+      return dma;
+    }
+
+    if (difMeses < 0) {
+        // "Pega emprestado" 12 meses
+        difMeses += 12;
+        difAnos--;
+    }
+
+    if (difDias < 0) {
+        // "Pega emprestado" o total de dias do mês anterior ao da data final
+        if (dmaFinal.iMes != 1) // do mesmo ano
+            difDias += maxDiasNoMes(dmaFinal.iMes - 1, dmaFinal.iAno);
+        else // do ano anterior, se mês for janeiro
+            difDias += maxDiasNoMes(12, dmaFinal.iAno - 1);
+        difMeses--;
+    }
+
+    dma.qtdDias = difDias;
+    dma.qtdMeses = difMeses;
+    dma.qtdAnos = difAnos;
     dma.retorno = 1;
     return dma;
   }
@@ -271,10 +295,6 @@ DataQuebrada quebraData(char data[]) {
   dq.valido = 1;
 
   return dq;
-}
-
-int eBissexto(int ano) {
-  return (ano % 4 == 0 && ano % 100 != 0) || (ano % 100 == 0 && ano % 400 == 0);
 }
 
 int maxDiasNoMes(int mes, int ano) {
