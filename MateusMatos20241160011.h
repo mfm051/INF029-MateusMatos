@@ -51,5 +51,6 @@ int q6(int numerobase, int numerobusca);
 DataQuebrada quebraData(char data[]);
 // Adicionado pelo aluno
 int maxDiasNoMes(int mes, int ano);
+int casaDecimal(int num);
 
 #endif // TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H

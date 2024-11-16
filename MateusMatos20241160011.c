@@ -146,18 +146,18 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]) {
     }
 
     if (difMeses < 0) {
-        // "Pega emprestado" 12 meses
-        difMeses += 12;
-        difAnos--;
+      // "Pega emprestado" 12 meses
+      difMeses += 12;
+      difAnos--;
     }
 
     if (difDias < 0) {
-        // "Pega emprestado" o total de dias do mês anterior ao da data final
-        if (dmaFinal.iMes != 1) // do mesmo ano
-            difDias += maxDiasNoMes(dmaFinal.iMes - 1, dmaFinal.iAno);
-        else // do ano anterior, se mês for janeiro
-            difDias += maxDiasNoMes(12, dmaFinal.iAno - 1);
-        difMeses--;
+      // "Pega emprestado" o total de dias do mês anterior ao da data final
+      if (dmaFinal.iMes != 1) // do mesmo ano
+        difDias += maxDiasNoMes(dmaFinal.iMes - 1, dmaFinal.iAno);
+      else // do ano anterior, se mês for janeiro
+        difDias += maxDiasNoMes(12, dmaFinal.iAno - 1);
+      difMeses--;
     }
 
     dma.qtdDias = difDias;
@@ -185,9 +185,10 @@ int q3(char *texto, char c, int isCaseSensitive) {
 
   for (int i = 0; texto[i] != '\0'; i++) {
     if (texto[i] == c)
-        qtdOcorrencias++;
-    else if (!isCaseSensitive && (c == ('a' - 'A') + texto[i] || c == ('A' - 'a') + texto[i]))
-        qtdOcorrencias++;
+      qtdOcorrencias++;
+    else if (!isCaseSensitive &&
+             (c == ('a' - 'A') + texto[i] || c == ('A' - 'a') + texto[i]))
+      qtdOcorrencias++;
   }
 
   return qtdOcorrencias;
@@ -221,24 +222,25 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]) {
 
   int comprimentoTexto = strlen(strTexto);
   int comprimentoBusca = strlen(strBusca);
-  char *tempStr = (char *) malloc ((comprimentoBusca + 1) * sizeof(char));
+  char *tempStr = (char *)malloc((comprimentoBusca + 1) * sizeof(char));
 
   int i = 0;
   while (i < comprimentoTexto) {
     if (strTexto[i] == strBusca[0]) {
-        // Copia substring do tamanho de strBusca para tempStr a partir da posição atual de i
-        strncpy(tempStr, &strTexto[i], comprimentoBusca);
+      // Copia substring do tamanho de strBusca para tempStr a partir da posição
+      // atual de i
+      strncpy(tempStr, &strTexto[i], comprimentoBusca);
 
-        if (strcmp(tempStr, strBusca) == 0) {
-            qtdOcorrencias++;
+      if (strcmp(tempStr, strBusca) == 0) {
+        qtdOcorrencias++;
 
-            posicoes[ultimaPos] = i + 1; // Contagem começa a partir de 1
-            posicoes[ultimaPos + 1] = i + comprimentoBusca;
-            ultimaPos += 2;
+        posicoes[ultimaPos] = i + 1; // Contagem começa a partir de 1
+        posicoes[ultimaPos + 1] = i + comprimentoBusca;
+        ultimaPos += 2;
 
-            i += comprimentoBusca;
-            continue;
-        }
+        i += comprimentoBusca;
+        continue;
+      }
     }
 
     i++;
@@ -258,19 +260,13 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]) {
  */
 
 int q5(int num) {
-    int casaMax = 1;
-    int resto = num;
-    int invertido = 0;
+  int casaMax = casaDecimal(num);
+  int invertido = 0;
 
-    while (resto >= 10) {
-        resto /= 10;
-        casaMax *= 10;
-    }
+  for (int casaAtual = 1; casaAtual <= casaMax; casaAtual *= 10)
+    invertido += (casaMax / casaAtual) * ((num / casaAtual) % 10);
 
-    for (int casaAtual = 1; casaAtual <= casaMax; casaAtual *= 10)
-        invertido += (casaMax / casaAtual) * ((num / casaAtual) % 10);
-
-    return invertido;
+  return invertido;
 }
 
 /*
@@ -284,7 +280,21 @@ int q5(int num) {
  */
 
 int q6(int numerobase, int numerobusca) {
-  int qtdOcorrencias;
+  int qtdOcorrencias = 0;
+  int casaDecimalBusca = casaDecimal(numerobusca);
+  int resto = numerobase;
+
+  while (resto >= casaDecimalBusca) {
+    // Compara número com a parte final do número base com mesmo número de casas
+    // decimais
+    if ((resto % (casaDecimalBusca * 10)) == numerobusca) {
+      qtdOcorrencias++;
+      resto /= (casaDecimalBusca * 10);
+      // Evita casos como 444, em que '44' seria lido duas vezes
+    } else
+      resto /= 10;
+  }
+
   return qtdOcorrencias;
 }
 
@@ -364,4 +374,16 @@ int maxDiasNoMes(int mes, int ano) {
   }
 
   return maxDias;
+}
+
+int casaDecimal(int num) {
+  int resto = num;
+  int casaMax = 1;
+
+  while (resto >= 10) {
+    resto /= 10;
+    casaMax *= 10;
+  }
+
+  return casaMax;
 }
