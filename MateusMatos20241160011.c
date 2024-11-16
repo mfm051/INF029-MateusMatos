@@ -257,7 +257,21 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]) {
     Número invertido
  */
 
-int q5(int num) { return num; }
+int q5(int num) {
+    int casaMax = 1;
+    int resto = num;
+    int invertido = 0;
+
+    while (resto >= 10) {
+        resto /= 10;
+        casaMax *= 10;
+    }
+
+    for (int casaAtual = 1; casaAtual <= casaMax; casaAtual *= 10)
+        invertido += (casaMax / casaAtual) * ((num / casaAtual) % 10);
+
+    return invertido;
+}
 
 /*
  Q6 = ocorrência de um número em outro
