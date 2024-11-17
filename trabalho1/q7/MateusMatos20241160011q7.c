@@ -6,6 +6,28 @@
 int main()
 {
     char tabuleiro[3][3] = {'\0'};
+    OpcaoJogador jogadores[2];
+    char simbolos[2] = {'X', 'O'};
+    int rodada = 1;
+    int iJogador;
+
+    do
+    {
+        mostraTabuleiro(tabuleiro);
+        iJogador = (rodada + 1) % 2;
+
+        do
+        {
+            printf("Jogador %d (%c): ", iJogador + 1, simbolos[iJogador]);
+            jogadores[iJogador] = obtemOpcaoJogador();
+        } while (!jogadores[iJogador].valido || !posicaoLivre(tabuleiro, jogadores[iJogador]));
+
+        tabuleiro[jogadores[iJogador].linha][jogadores[iJogador].coluna] = simbolos[iJogador];
+        rodada++;
+    } while (!fimJogo(tabuleiro));
+
+    printf("Fim de jogo\n");
+    mostraTabuleiro(tabuleiro);
 }
 
 void mostraTabuleiro(char tabuleiro[3][3])
@@ -24,24 +46,22 @@ void mostraTabuleiro(char tabuleiro[3][3])
 
 OpcaoJogador obtemOpcaoJogador()
 {
-    char entrada[4]; // 2 para opção, 1 para /n do fgets e 1 para \0
+    char linha, coluna;
     OpcaoJogador opcao;
 
-    printf("Posição no tabuleiro: ");
-    fgets(entrada, 3, stdin);
-    entrada[2] = '\0';
+    char entrada[4];
+    fgets(entrada, 4, stdin);
+    sscanf(entrada, "%c%c", &coluna, &linha);
 
-    // Normaliza letra da linha
-    if (entrada[0] >= 'Z')
-        entrada[0] -= ('a' - 'A');
+    // Normaliza letra da coluna
+    if (coluna >= 'Z')
+        coluna -= ('a' - 'A');
 
-    printf("Entrada lida: %s\n", entrada);
-
-    if (('A' <= entrada[0] && entrada[0] <= 'C') &&
-        ('1' <= entrada[1] && entrada[1] <= '3'))
+    if (('A' <= coluna && coluna <= 'C') &&
+        ('1' <= linha && linha <= '3'))
     {
-        opcao.linha = entrada[0] - 'A';  // 'A' é linha 0 no tabuleiro
-        opcao.coluna = entrada[1] - '1'; // '1' é coluna 0 no tabuleiro
+        opcao.coluna = coluna - 'A'; // 'A' é coluna 0 no tabuleiro
+        opcao.linha = linha - '1';   // '1' é linha 0 no tabuleiro
         opcao.valido = 1;
     }
     else
@@ -79,4 +99,9 @@ int fimJogo(char tabuleiro[3][3])
 
     // Se nenhum teste passar, jogo encerra se tabuleiro cheio
     return tabuleiroCheio;
+}
+
+int posicaoLivre(char tabuleiro[3][3], OpcaoJogador posicao)
+{
+    return tabuleiro[posicao.linha][posicao.coluna] == '\0';
 }

@@ -11,5 +11,6 @@ typedef struct OJ
 void mostraTabuleiro(char tabuleiro[3][3]);
 OpcaoJogador obtemOpcaoJogador();
 int fimJogo(char tabuleiro[3][3]);
+int posicaoLivre(char tabuleiro[3][3], OpcaoJogador posicao);
 
 #endif // VELHAHEADER
