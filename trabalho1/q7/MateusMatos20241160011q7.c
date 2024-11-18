@@ -14,7 +14,7 @@ int main()
     do
     {
         mostraTabuleiro(tabuleiro);
-        iJogador = (rodada + 1) % 2;
+        iJogador = (rodada + 1) % 2; // Alterna entre jogador 1 (i = 0) e jogador 2 (i = 1)
 
         do
         {
