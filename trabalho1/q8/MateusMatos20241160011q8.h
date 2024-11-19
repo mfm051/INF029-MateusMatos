@@ -1,22 +1,33 @@
 #ifndef NAVALHEADER
 #define NAVALHEADER
 
-// Navios obrigatórios
-#define QTDNAVIOS4 1
-#define QTDNAVIOS3 1
-#define QTDNAVIOS1 3
-// Navios extras
-#define QTDNAVIOS2 0
+#define MAXNAVIOS 5
+
+typedef struct Coordenadas {
+  int linha;
+  int coluna;
+  int valido; // 0: inválido, 1: válido
+} Coordenadas;
 
 typedef struct Navio {
   int tamanho;
-  // Coordenadas do navio [linha, coluna]
-  int inicio[2];
-  int fim[2];
+  Coordenadas inicio;
+  Coordenadas fim;
 } Navio;
 
+typedef struct Jogador {
+  Navio navios[MAXNAVIOS];
+  int iNavios;
+  char tabuleiro[10][10];
+  int posRestantes;
+} Jogador;
+
 void mostraTabuleiro(char tabuleiro[10][10]);
-void inicializaTabuleiro(char tabuleiro[10][10]);
+void marcaTabuleiro(Coordenadas inicio, Coordenadas fim, char simbolo,
+                    char tabuleiro[10][10]);
+void setupJogador(Jogador *jogador);
 int navioValido(Navio navio, char tabuleiro[10][10]);
+Coordenadas obtemCoordenadas();
+void posicionaNavios(int qtd, int tamNavio, Jogador *jogador);
 
 #endif // NAVALHEADER
