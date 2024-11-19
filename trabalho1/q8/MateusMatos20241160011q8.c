@@ -1,5 +1,4 @@
 #include "MateusMatos20241160011q8.h"
-#include <math.h>
 #include <stdio.h>
 
 int main() {
@@ -42,9 +41,11 @@ int navioValido(Navio navio, char tabuleiro[10][10]) {
     return 0;
   }
 
-  int tamanho = 1 + sqrt(pow((navio.inicio[0] - navio.fim[0]), 2) +
-                         pow(navio.inicio[1] - navio.fim[1],
-                             2)); // Espaço ocupado pelo navio no tabuleiro
+  // Como navio não está na diagonal, uma das seguintes subtrações é zero
+  int tamanho =
+      (navio.fim[0] - navio.inicio[0]) + (navio.fim[1] - navio.inicio[1]);
+  tamanho = tamanho < 0 ? -tamanho : tamanho;
+
   if (tamanho != navio.tamanho) {
     printf("Inválido! Navio tem tamanho %d\n", navio.tamanho);
     return 0;
