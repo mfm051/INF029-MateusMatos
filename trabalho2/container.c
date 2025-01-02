@@ -6,15 +6,42 @@ Container *criaContainer(int tamanho)
     Container *container = (Container *)malloc(sizeof(Container));
     container->tamanho = tamanho;
     container->qtd = 0;
-    container->elementos = (int *)malloc(container->tamanho * sizeof(int));
+    container->head = NULL;
     return container;
 }
 
-void insereElemento(Container *container, int elemento)
+Elemento *encontraUltimoElemento(Container *container)
 {
-    if (container && (container->qtd < container->tamanho))
+    if (container->head == NULL)
+        return container->head;
+    else
     {
-        container->elementos[container->qtd] = elemento;
+        Elemento *atual = container->head;
+
+        while (atual->proximo != NULL)
+            atual = atual->proximo;
+
+        return atual;
+    }
+}
+
+Elemento *criaElemento(int valor)
+{
+    Elemento *elemento = (Elemento *)malloc(sizeof(Elemento));
+    elemento->valor = valor;
+    elemento->proximo = NULL;
+    return elemento;
+}
+
+void insereElemento(Container *container, int valor)
+{
+    if (container->qtd < container->tamanho)
+    {
+        Elemento *ultimo = encontraUltimoElemento(container);
+        if (ultimo == NULL) // Container vazio
+            container->head = criaElemento(valor);
+        else
+            ultimo->proximo = criaElemento(valor);
         container->qtd++;
     }
 }

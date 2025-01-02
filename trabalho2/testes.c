@@ -19,18 +19,19 @@ int elementoInserido()
     int novoElemento = 5;
     insereElemento(container, novoElemento);
 
-    return container && container->elementos[0] == novoElemento && container->qtd == 1;
+    return container && container->qtd == 1 && container->head->valor == novoElemento;
 }
 
 int elementoNaoInserido()
 {
     Container *container = criaContainer(1);
-    insereElemento(container, 5);
+    int elemento = 5;
+    insereElemento(container, elemento);
     // Capacidade do container atingida
 
     int novoElemento = 10;
 
-    return container && container->qtd == 1;
+    return container && container->qtd == 1 && container->head->valor == elemento;
 }
 
 int main()
