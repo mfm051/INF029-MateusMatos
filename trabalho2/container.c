@@ -10,7 +10,7 @@ Container *criaContainer(int tamanho)
     return container;
 }
 
-void insereElemento(Container *container, int valor)
+int insereElemento(Container *container, int valor)
 {
     if (container->qtd < container->tamanho)
     {
@@ -51,6 +51,11 @@ void removeElemento(Container *container, int valor)
             atual = atual->proximo;
         }
     }
+}
+
+void aumentaTamanho(Container *container, int qtdNovosElementos)
+{
+    container->tamanho += qtdNovosElementos;
 }
 
 Elemento *encontraUltimoElemento(Container *container)

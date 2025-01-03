@@ -64,6 +64,18 @@ int elementoNaoRemovido()
     return container && container->qtd == 1;
 }
 
+int tamanhoAumentado()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 5);
+
+    aumentaTamanho(container, 1);
+    int novoElemento = 10;
+    insereElemento(container, novoElemento);
+
+    return container->tamanho == 2 && container->head->proximo->valor == novoElemento;
+}
+
 int main()
 {
     printf("Testes para container\n");
@@ -73,4 +85,5 @@ int main()
     printf("Elemento não é inserido no container cheio: %d\n", elementoNaoInserido());
     printf("Elemento encontrado é removido do container: %d\n", elementoRemovido());
     printf("Tentativa de remoção não altera o container: %d\n", elementoNaoRemovido());
+    printf("Tamanho do conteiner é aumentado: %d\n", tamanhoAumentado());
 }
