@@ -58,6 +58,38 @@ void aumentaTamanho(Container *container, int qtdNovosElementos)
     container->tamanho += qtdNovosElementos;
 }
 
+int *obtemElementosOrdenados(Container *container)
+{
+    // Cria array de tamanho igual ao do container
+    int *nums = (int *)malloc(container->tamanho * sizeof(int));
+
+    // Copia os elementos
+    int i = 0;
+    Elemento *atual = container->head;
+    while (atual)
+    {
+        nums[i] = atual->valor;
+        i++;
+        atual = atual->proximo;
+    }
+
+    // Ordenação por insertion sort
+    int key, j, temp;
+    for (int i = 1; i < container->tamanho; i++)
+    {
+        key = nums[i];
+        j = i - 1;
+        while (j >= 0 && nums[j] > key)
+        {
+            nums[j + 1] = nums[j];
+            j--;
+        }
+        nums[j + 1] = key;
+    }
+
+    return nums;
+}
+
 Elemento *encontraUltimoElemento(Container *container)
 {
     if (container->head == NULL)

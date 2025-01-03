@@ -76,6 +76,18 @@ int tamanhoAumentado()
     return container->tamanho == 2 && container->head->proximo->valor == novoElemento;
 }
 
+int elementosOrdenados()
+{
+    Container *container = criaContainer(3);
+    insereElemento(container, 3);
+    insereElemento(container, 1);
+    insereElemento(container, 2);
+
+    int *lista = obtemElementosOrdenados(container);
+
+    return lista[0] == 1 && lista[1] == 2 && lista[2] == 3;
+}
+
 int main()
 {
     printf("Testes para container\n");
@@ -86,4 +98,5 @@ int main()
     printf("Elemento encontrado é removido do container: %d\n", elementoRemovido());
     printf("Tentativa de remoção não altera o container: %d\n", elementoNaoRemovido());
     printf("Tamanho do conteiner é aumentado: %d\n", tamanhoAumentado());
+    printf("Lista ordenada dos elementos é obtida: %d\n", elementosOrdenados());
 }
