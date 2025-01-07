@@ -53,6 +53,35 @@ void removeElemento(Container *container, int valor)
     }
 }
 
+Elemento *encontraElemento(Container *container, int valor)
+{
+    Elemento *atual = container->head;
+    while (atual)
+    {
+        if (atual->valor == valor)
+        {
+            return atual;
+        }
+        atual = atual->proximo;
+    }
+    return NULL;
+}
+
+Elemento *removeUltimoElemento(Container *container)
+{
+    Elemento *atual = container->head;
+    while (atual)
+    {
+        if (atual->proximo == NULL)
+        {
+            break;
+        }
+        atual = atual->proximo;
+    }
+    container->qtd = container->qtd > 0 ? container->qtd - 1 : container->qtd;
+    return atual;
+}
+
 void aumentaTamanho(Container *container, int qtdNovosElementos)
 {
     container->tamanho += qtdNovosElementos;

@@ -88,6 +88,36 @@ int elementosOrdenados()
     return lista[0] == 1 && lista[1] == 2 && lista[2] == 3;
 }
 
+int elementoEncontrado()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 3);
+
+    Elemento *encontrado = encontraElemento(container, 3);
+
+    return encontrado && encontrado->valor == 3;
+}
+
+int elementoNaoEncontrado()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 3);
+
+    Elemento *encontrado = encontraElemento(container, 100);
+
+    return !encontrado;
+}
+
+int ultimoElementoRemovido()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 3);
+
+    Elemento *removido = removeUltimoElemento(container);
+
+    return removido && removido->valor == 3 && container->qtd == 0;
+}
+
 int main()
 {
     printf("Testes para container\n");
@@ -99,4 +129,7 @@ int main()
     printf("Tentativa de remoção não altera o container: %d\n", elementoNaoRemovido());
     printf("Tamanho do conteiner é aumentado: %d\n", tamanhoAumentado());
     printf("Lista ordenada dos elementos é obtida: %d\n", elementosOrdenados());
+    printf("Elemento é encontrado: %d\n", elementoEncontrado());
+    printf("Elemento não é encontrado: %d\n", elementoNaoEncontrado());
+    printf("Último elemento é removido: %d\n", ultimoElementoRemovido());
 }

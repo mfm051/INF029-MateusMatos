@@ -55,34 +55,27 @@ CONSTANTES
 */
 int inserirNumeroEmEstrutura(int posicao, int valor)
 {
-    int retorno = 0;
-    int existeEstruturaAuxiliar = 0;
-    int temEspaco = 0;
-
     if (!posicaoValida(posicao))
-        retorno = POSICAO_INVALIDA;
-    else
     {
-        // testar se existe a estrutura auxiliar
-        if (existeEstruturaAuxiliar)
-        {
-            if (temEspaco)
-            {
-                // insere
-                retorno = SUCESSO;
-            }
-            else
-            {
-                retorno = SEM_ESPACO;
-            }
-        }
-        else
-        {
-            retorno = SEM_ESTRUTURA_AUXILIAR;
-        }
+        return POSICAO_INVALIDA;
     }
 
-    return retorno;
+    if (vetorPrincipal[posicao] == NULL)
+    {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    Container *container = vetorPrincipal[posicao];
+
+    if (container->qtd == container->tamanho)
+    {
+        return SEM_ESPACO;
+    }
+    else
+    {
+        insereElemento(container, valor);
+        return SUCESSO;
+    }
 }
 
 /*
@@ -98,8 +91,26 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-    int retorno = SUCESSO;
-    return retorno;
+    if (!posicaoValida(posicao))
+    {
+        return POSICAO_INVALIDA;
+    }
+
+    if (vetorPrincipal[posicao] == NULL)
+    {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if (vetorPrincipal[posicao]->qtd > 0)
+    {
+        Container *container = vetorPrincipal[posicao];
+        removeUltimoElemento(container);
+        return SUCESSO;
+    }
+    else
+    {
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
 }
 
 /*
@@ -117,8 +128,27 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
-    int retorno = SUCESSO;
-    return retorno;
+    if (!posicaoValida(posicao))
+    {
+        return POSICAO_INVALIDA;
+    }
+
+    if (vetorPrincipal[posicao] == NULL)
+    {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    Container *container = vetorPrincipal[posicao];
+
+    if (encontraElemento(container, valor))
+    {
+        removeElemento(container, valor);
+        return SUCESSO;
+    }
+    else
+    {
+        return NUMERO_INEXISTENTE;
+    }
 }
 
 /*

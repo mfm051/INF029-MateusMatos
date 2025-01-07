@@ -20,10 +20,10 @@ int main()
     inicializar();
     testeInserirSemNada();
     testeCriarEstrutura();
-    /*testeInserirComEstrutura();
+    testeInserirComEstrutura();
     testeExcluir();
     testeExcluirNumeroEspecifico();
-    testeListar();
+    /*testeListar();
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
     testeListaEncadeada();*/
