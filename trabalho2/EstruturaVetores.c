@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "container.h"
+
 #define TAM 10
 
 #include "EstruturaVetores.h"
 
-int vetorPrincipal[TAM];
+Container *vetorPrincipal[TAM] = {NULL};
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -19,20 +22,26 @@ Rertono (int)
 */
 int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
+    // Na posicao pode já existir estrutura auxiliar
+    if (vetorPrincipal[posicao] != NULL)
+    {
+        return JA_TEM_ESTRUTURA_AUXILIAR;
+    }
 
-    int retorno = 0;
-    // a posicao pode já existir estrutura auxiliar
-    retorno = JA_TEM_ESTRUTURA_AUXILIAR;
-    // se posição é um valor válido {entre 1 e 10}
-    retorno = POSICAO_INVALIDA;
-    // o tamanho ser muito grande
-    retorno = SEM_ESPACO_DE_MEMORIA;
-    // o tamanho nao pode ser menor que 1
-    retorno = TAMANHO_INVALIDO;
-    // deu tudo certo, crie
-    retorno = SUCESSO;
+    // Posição deve ser um valor válido
+    if (!posicaoValida(posicao))
+    {
+        return POSICAO_INVALIDA;
+    }
 
-    return retorno;
+    // O tamanho nao pode ser menor que 1
+    if (tamanho < 1)
+    {
+        return TAMANHO_INVALIDO;
+    }
+
+    vetorPrincipal[posicao] = criaContainer(tamanho);
+    return SUCESSO;
 }
 
 /*
@@ -49,9 +58,8 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     int retorno = 0;
     int existeEstruturaAuxiliar = 0;
     int temEspaco = 0;
-    int posicao_invalida = 0;
 
-    if (posicao_invalida)
+    if (!posicaoValida(posicao))
         retorno = POSICAO_INVALIDA;
     else
     {
@@ -60,7 +68,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
         {
             if (temEspaco)
             {
-                //insere
+                // insere
                 retorno = SUCESSO;
             }
             else
@@ -113,19 +121,6 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
     return retorno;
 }
 
-// se posição é um valor válido {entre 1 e 10}
-int ehPosicaoValida(int posicao)
-{
-    int retorno = 0;
-    if (posicao < 1 || posicao > 10)
-    {
-        retorno = POSICAO_INVALIDA;
-    }
-    else
-        retorno = SUCESSO;
-
-    return retorno;
-}
 /*
 Objetivo: retorna os números da estrutura auxiliar da posição 'posicao (1..10)'.
 os números devem ser armazenados em vetorAux
@@ -157,7 +152,6 @@ int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 
     int retorno = 0;
 
-    
     return retorno;
 }
 
@@ -251,7 +245,7 @@ void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 Objetivo: Destruir a lista encadeada com cabeçote a partir de início.
 O ponteiro inicio deve ficar com NULL.
 
-Retorno 
+Retorno
     void.
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
@@ -259,7 +253,7 @@ void destruirListaEncadeadaComCabecote(No **inicio)
 }
 
 /*
-Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
+Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 */
 
@@ -268,11 +262,17 @@ void inicializar()
 }
 
 /*
-Objetivo: finaliza o programa. deve ser chamado ao final do programa 
+Objetivo: finaliza o programa. deve ser chamado ao final do programa
 para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 */
 
 void finalizar()
 {
+}
+
+int posicaoValida(int posicao)
+{
+    // Considera input do usuário, entre 1 e TAM
+    return posicao >= 1 && posicao <= TAM;
 }
