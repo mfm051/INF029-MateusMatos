@@ -22,16 +22,18 @@ Rertono (int)
 */
 int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
+    posicao = getPosicaoNoVetor(posicao);
+
+    // Posição deve ser um valor válido
+    if (posicao == -1)
+    {
+        return POSICAO_INVALIDA;
+    }
+
     // Na posicao pode já existir estrutura auxiliar
     if (vetorPrincipal[posicao] != NULL)
     {
         return JA_TEM_ESTRUTURA_AUXILIAR;
-    }
-
-    // Posição deve ser um valor válido
-    if (!posicaoValida(posicao))
-    {
-        return POSICAO_INVALIDA;
     }
 
     // O tamanho nao pode ser menor que 1
@@ -55,7 +57,9 @@ CONSTANTES
 */
 int inserirNumeroEmEstrutura(int posicao, int valor)
 {
-    if (!posicaoValida(posicao))
+    posicao = getPosicaoNoVetor(posicao);
+
+    if (posicao == -1)
     {
         return POSICAO_INVALIDA;
     }
@@ -91,7 +95,9 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-    if (!posicaoValida(posicao))
+    posicao = getPosicaoNoVetor(posicao);
+
+    if (posicao == -1)
     {
         return POSICAO_INVALIDA;
     }
@@ -128,7 +134,9 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
-    if (!posicaoValida(posicao))
+    posicao = getPosicaoNoVetor(posicao);
+
+    if (posicao == -1)
     {
         return POSICAO_INVALIDA;
     }
@@ -162,10 +170,30 @@ Retorno (int)
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+    posicao = getPosicaoNoVetor(posicao);
 
-    int retorno = 0;
+    if (posicao == -1)
+    {
+        return POSICAO_INVALIDA;
+    }
 
-    return retorno;
+    if (vetorPrincipal[posicao] == NULL)
+    {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    Container *container = vetorPrincipal[posicao];
+    Elemento *atual = container->head;
+    int ultimoPreenchido = -1;
+
+    while (atual)
+    {
+        ultimoPreenchido++;
+        vetorAux[ultimoPreenchido] = atual->valor;
+        atual = atual->proximo;
+    }
+
+    return SUCESSO;
 }
 
 /*
@@ -301,8 +329,15 @@ void finalizar()
 {
 }
 
-int posicaoValida(int posicao)
+int getPosicaoNoVetor(int inputPosicao)
 {
-    // Considera input do usuário, entre 1 e TAM
-    return posicao >= 1 && posicao <= TAM;
+    // Devolve posição como índice no vetor
+    if (inputPosicao >= 1 && inputPosicao <= TAM)
+    {
+        return inputPosicao - 1;
+    }
+    else
+    {
+        return -1;
+    }
 }

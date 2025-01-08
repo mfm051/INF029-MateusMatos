@@ -44,6 +44,6 @@ void inicializar();
 void finalizar();
 void dobrar(int *x);
 
-int posicaoValida(int posicao);
+int getPosicaoNoVetor(int inputPosicao);
 
 #endif // TRABALHO2_ESTRUTURAVETORES_H
