@@ -15,10 +15,23 @@ void testeListar();
 void testeRetornarTodosNumeros();
 void testeMudarTamanhoEstrutura();
 void testeListaEncadeada();
+// Testes para container (estrutura auxiliar)
+void containerCriado();
+void elementoInserido();
+void elementoNaoInserido();
+void elementoRemovido();
+void elementoNaoRemovido();
+void tamanhoAumentado();
+void elementosCopiados();
+void elementoEncontrado();
+void elementoNaoEncontrado();
+void ultimoElementoRemovido();
 
 int main()
 {
     inicializar();
+
+    printf("\n\nTestes de integração estruturas principal/secundária\n\n");
     testeInserirSemNada();
     testeCriarEstrutura();
     testeInserirComEstrutura();
@@ -28,6 +41,19 @@ int main()
     /*testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
     testeListaEncadeada();*/
+
+    printf("\n\nTestes de estrutura secundária (container)\n\n");
+    containerCriado();
+    elementoInserido();
+    elementoNaoInserido();
+    elementoRemovido();
+    elementoNaoRemovido();
+    tamanhoAumentado();
+    elementosCopiados();
+    elementoEncontrado();
+    elementoNaoEncontrado();
+    ultimoElementoRemovido();
+
     finalizar();
 }
 int ligado = 1;
@@ -114,6 +140,7 @@ void testeListar()
 
     show_log("testeListar()");
     // ###  int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]); ###
+    printf("%d\n", criarEstruturaAuxiliar(vetorPrincipal, 2, 2) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(vetorPrincipal, 2, 7) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(vetorPrincipal, 2, -9) == SUCESSO);
 
@@ -285,3 +312,130 @@ Rertono (int)
 
 //     printf("%d\n", inicio == NULL);
 // }
+
+// Testes para container (estrutura auxiliar)
+
+void containerCriado()
+{
+    int tamanho = 1;
+    Container *container = NULL;
+    container = criaContainer(tamanho);
+
+    int sucesso = container && container->tamanho == 1 && container->qtd == 0;
+    printf("Container é criado: %d\n", sucesso);
+}
+
+void elementoInserido()
+{
+    Container *container = criaContainer(1);
+    int novoElemento = 5;
+    insereElemento(container, novoElemento);
+
+    int sucesso = container && container->qtd == 1 && container->head->valor == novoElemento;
+    printf("Elemento é inserido no container não cheio: %d\n", sucesso);
+}
+
+void elementoNaoInserido()
+{
+    Container *container = criaContainer(1);
+    int elemento = 5;
+    insereElemento(container, elemento);
+    // Capacidade do container atingida
+
+    int novoElemento = 10;
+
+    int sucesso = container && container->qtd == 1 && container->head->valor == elemento;
+    printf("Elemento não é inserido no container cheio: %d\n", sucesso);
+}
+
+void elementoRemovido()
+{
+    // Container com dois elementos de mesmo valor
+    Container *container = criaContainer(2);
+    int elemento = 5;
+    insereElemento(container, elemento);
+    insereElemento(container, elemento);
+
+    // Elemento removido apenas uma vez
+    removeElemento(container, elemento);
+
+    int sucesso = container &&
+                  // Quantidade de elementos alterada
+                  container->qtd == 1 &&
+                  // Head atualizado
+                  container->head->valor == elemento;
+    printf("Elemento encontrado é removido do container: %d\n", sucesso);
+}
+
+void elementoNaoRemovido()
+{
+    Container *container = criaContainer(1);
+    int elementoNoContainer = 2;
+    int elementoForaDoContainer = 3;
+    insereElemento(container, elementoNoContainer);
+
+    removeElemento(container, elementoForaDoContainer);
+
+    int sucesso = container && container->qtd == 1;
+    printf("Tentativa de remoção não altera o container: %d\n", sucesso);
+}
+
+void tamanhoAumentado()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 5);
+
+    aumentaTamanho(container, 1);
+    int novoElemento = 10;
+    insereElemento(container, novoElemento);
+
+    int sucesso = container->tamanho == 2 && container->head->proximo->valor == novoElemento;
+    printf("Tamanho do conteiner é aumentado: %d\n", sucesso);
+}
+
+void elementosCopiados()
+{
+    Container *container = criaContainer(3);
+    insereElemento(container, 1);
+    insereElemento(container, 2);
+    insereElemento(container, 3);
+
+    int lista[3];
+    copiaElementos(container, lista);
+
+    int sucesso = lista[0] == 1 && lista[1] == 2 && lista[2] == 3;
+    printf("Elementos são copiados para um vetor: %d\n", sucesso);
+}
+
+void elementoEncontrado()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 3);
+
+    Elemento *encontrado = encontraElemento(container, 3);
+
+    int sucesso = encontrado && encontrado->valor == 3;
+    printf("Elemento é encontrado: %d\n", sucesso);
+}
+
+void elementoNaoEncontrado()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 3);
+
+    Elemento *encontrado = encontraElemento(container, 100);
+
+    int sucesso = !encontrado;
+    printf("Elemento não é encontrado: %d\n", sucesso);
+}
+
+void ultimoElementoRemovido()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 3);
+
+    Elemento *removido = removeUltimoElemento(container);
+
+    int sucesso = removido && removido->valor == 3 && container->qtd == 0;
+    printf("Último elemento é removido: %d\n", sucesso);
+}
