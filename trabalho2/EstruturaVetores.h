@@ -1,6 +1,10 @@
 #ifndef TRABALHO2_ESTRUTURAVETORES_H
 #define TRABALHO2_ESTRUTURAVETORES_H
 
+#include "container.h"
+
+#define TAM 10
+
 // enumeracoes (enum) ajudam a deixar o codigo mais legivel, possibilitando que voce de significado
 // as suas constantes, para mais informacoes https://en.cppreference.com/w/c/language/enum
 // as constantes do enum em sua inicialização vao representar o numero resultante da soma do valor da
@@ -26,12 +30,12 @@ typedef struct reg
     struct reg *prox;
 } No;
 
-int criarEstruturaAuxiliar(int posicao, int tamanho);
-int inserirNumeroEmEstrutura(int posicao, int valor);
-int excluirNumeroDoFinaldaEstrutura(int posicao);
-int excluirNumeroEspecificoDeEstrutura(int posicao, int valor);
-int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]);
-int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]);
+int criarEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int tamanho);
+int inserirNumeroEmEstrutura(Container *vetorPrincipal[TAM], int posicao, int valor);
+int excluirNumeroDoFinaldaEstrutura(Container *vetorPrincipal[TAM], int posicao);
+int excluirNumeroEspecificoDeEstrutura(Container *vetorPrincipal[TAM], int posicao, int valor);
+int getDadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int vetorAux[]);
+int getDadosOrdenadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int vetorAux[]);
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]);
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]);
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);

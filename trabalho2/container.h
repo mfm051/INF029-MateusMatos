@@ -1,3 +1,6 @@
+#ifndef CONTAINER_H
+#define CONTAINER_H
+
 // Estrutura "auxiliar" que abriga uma quantidade de inteiros
 // determinada pelo usuário. Representada por uma lista ligada
 // de elementos
@@ -21,6 +24,10 @@ void removeElemento(Container *container, int valor);
 Elemento *encontraElemento(Container *container, int valor);
 Elemento *removeUltimoElemento(Container *container);
 void aumentaTamanho(Container *container, int qtdNovosElementos);
-int *obtemElementosOrdenados(Container *container);
+void copiaElementos(Container *container, int *vetor);
 Elemento *encontraUltimoElemento(Container *container);
 Elemento *criaElemento(int valor);
+// Funções auxiliares
+void ordenaVetor(int *vetor, int tamanho);
+
+#endif // CONTAINER_H

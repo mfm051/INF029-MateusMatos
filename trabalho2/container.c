@@ -87,36 +87,16 @@ void aumentaTamanho(Container *container, int qtdNovosElementos)
     container->tamanho += qtdNovosElementos;
 }
 
-int *obtemElementosOrdenados(Container *container)
+void copiaElementos(Container *container, int *vetor)
 {
-    // Cria array de tamanho igual ao do container
-    int *nums = (int *)malloc(container->tamanho * sizeof(int));
-
-    // Copia os elementos
     int i = 0;
     Elemento *atual = container->head;
     while (atual)
     {
-        nums[i] = atual->valor;
+        vetor[i] = atual->valor;
         i++;
         atual = atual->proximo;
     }
-
-    // Ordenação por insertion sort
-    int key, j, temp;
-    for (int i = 1; i < container->tamanho; i++)
-    {
-        key = nums[i];
-        j = i - 1;
-        while (j >= 0 && nums[j] > key)
-        {
-            nums[j + 1] = nums[j];
-            j--;
-        }
-        nums[j + 1] = key;
-    }
-
-    return nums;
 }
 
 Elemento *encontraUltimoElemento(Container *container)
@@ -140,4 +120,21 @@ Elemento *criaElemento(int valor)
     elemento->valor = valor;
     elemento->proximo = NULL;
     return elemento;
+}
+
+void ordenaVetor(int *vetor, int tamanho)
+{
+    // Ordenação por insertion sort
+    int key, j, temp;
+    for (int i = 1; i < tamanho; i++)
+    {
+        key = vetor[i];
+        j = i - 1;
+        while (j >= 0 && vetor[j] > key)
+        {
+            vetor[j + 1] = vetor[j];
+            j--;
+        }
+        vetor[j + 1] = key;
+    }
 }
