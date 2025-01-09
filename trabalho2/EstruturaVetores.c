@@ -291,11 +291,31 @@ Rertono (int)
     NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
-int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
+int modificarTamanhoEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int novoTamanho)
 {
+    posicao = getPosicaoNoVetor(posicao);
 
-    int retorno = 0;
-    return retorno;
+    if (posicao == -1)
+    {
+        return POSICAO_INVALIDA;
+    }
+
+    if (vetorPrincipal[posicao] == NULL)
+    {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    Container *container = vetorPrincipal[posicao];
+
+    if (container->tamanho + novoTamanho <= 0)
+    {
+        return NOVO_TAMANHO_INVALIDO;
+    }
+    else
+    {
+        modificaTamanho(container, novoTamanho);
+        return SUCESSO;
+    }
 }
 
 /*
@@ -307,12 +327,12 @@ Retorno (int)
     ESTRUTURA_AUXILIAR_VAZIA - estrutura auxiliar vazia
     Um número int > 0 correpondente a quantidade de elementos preenchidos da estrutura
 */
-int getQuantidadeElementosEstruturaAuxiliar(int posicao)
+int getQuantidadeElementosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao)
 {
+    posicao = getPosicaoNoVetor(posicao);
 
-    int retorno = 0;
-
-    return retorno;
+    Container *container = vetorPrincipal[posicao];
+    return container->qtd;
 }
 
 /*

@@ -23,7 +23,7 @@ int insereElemento(Container *container, int valor);
 void removeElemento(Container *container, int valor);
 Elemento *encontraElemento(Container *container, int valor);
 Elemento *removeUltimoElemento(Container *container);
-void aumentaTamanho(Container *container, int qtdNovosElementos);
+void modificaTamanho(Container *container, int incremento);
 void copiaElementos(Container *container, int *vetor, int posInicial);
 Elemento *encontraUltimoElemento(Container *container);
 Elemento *criaElemento(int valor);

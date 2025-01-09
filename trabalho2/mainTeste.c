@@ -22,6 +22,7 @@ void elementoNaoInserido();
 void elementoRemovido();
 void elementoNaoRemovido();
 void tamanhoAumentado();
+void tamanhoDiminuido();
 void elementosCopiados();
 void elementosCopiadosMeioDoVetor();
 void elementoEncontrado();
@@ -40,8 +41,8 @@ int main()
     testeExcluirNumeroEspecifico();
     testeListar();
     testeRetornarTodosNumeros();
-    /*testeMudarTamanhoEstrutura();
-    testeListaEncadeada();*/
+    testeMudarTamanhoEstrutura();
+    /*testeListaEncadeada();*/
 
     printf("\n\nTestes de estrutura secundária (container)\n\n");
     containerCriado();
@@ -50,6 +51,7 @@ int main()
     elementoRemovido();
     elementoNaoRemovido();
     tamanhoAumentado();
+    tamanhoDiminuido();
     elementosCopiados();
     elementosCopiadosMeioDoVetor();
     elementoEncontrado();
@@ -264,33 +266,39 @@ Rertono (int)
     NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
-// void testeMudarTamanhoEstrutura()
-// {
-//     show_log("testeMudarTamanhoEstrutura()");
-//     int vet[1];
-//     printf("%d\n", modificarTamanhoEstruturaAuxiliar(2, -3) == NOVO_TAMANHO_INVALIDO);
-//     printf("%d\n", modificarTamanhoEstruturaAuxiliar(2, -4) == NOVO_TAMANHO_INVALIDO);
-//     printf("%d\n", modificarTamanhoEstruturaAuxiliar(11, 7) == POSICAO_INVALIDA);
-//     printf("%d\n", modificarTamanhoEstruturaAuxiliar(0, 7) == POSICAO_INVALIDA);
-//     printf("%d\n", modificarTamanhoEstruturaAuxiliar(1, 7) == SEM_ESTRUTURA_AUXILIAR);
+void testeMudarTamanhoEstrutura()
+{
+    Container *vetorPrincipal[TAM] = {NULL};
 
-//     // modificar para tamanho de 3 para 1
-//     printf("%d\n", modificarTamanhoEstruturaAuxiliar(2, -2) == SUCESSO);
-//     printf("%d\n", getQuantidadeElementosEstruturaAuxiliar(2) == 1);
-//     printf("%d\n", getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
-//     printf("%d\n", vet[0] == 3);
+    show_log("testeMudarTamanhoEstrutura()");
+    int vet[1];
+    printf("%d ", criarEstruturaAuxiliar(vetorPrincipal, 2, 3) == SUCESSO);
+    printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 3) == SUCESSO);
+    printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 8) == SUCESSO);
+    printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 0) == SUCESSO);
+    printf("%d ", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 2, -3) == NOVO_TAMANHO_INVALIDO);
+    printf("%d ", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 2, -4) == NOVO_TAMANHO_INVALIDO);
+    printf("%d ", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 11, 7) == POSICAO_INVALIDA);
+    printf("%d ", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 0, 7) == POSICAO_INVALIDA);
+    printf("%d\n", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 1, 7) == SEM_ESTRUTURA_AUXILIAR);
 
-//     // modificar para tamanho de 1 para 4
-//     printf("%d\n", modificarTamanhoEstruturaAuxiliar(2, 3) == SUCESSO);
-//     printf("%d\n", getQuantidadeElementosEstruturaAuxiliar(2) == 1);
-//     printf("%d\n", getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
-//     printf("%d\n", vet[0] == 3);
+    // modificar para tamanho de 3 para 1
+    printf("%d ", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 2, -2) == SUCESSO);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 2) == 1);
+    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet) == SUCESSO);
+    printf("%d\n", vet[0] == 3);
 
-//     printf("%d\n", inserirNumeroEmEstrutura(2, 4) == SUCESSO);
-//     printf("%d\n", inserirNumeroEmEstrutura(2, -2) == SUCESSO);
-//     printf("%d\n", inserirNumeroEmEstrutura(2, 6) == SUCESSO);
-//     printf("%d\n", inserirNumeroEmEstrutura(2, 5) == SEM_ESPACO);
-// }
+    // modificar para tamanho de 1 para 4
+    printf("%d ", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 2, 3) == SUCESSO);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 2) == 1);
+    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet) == SUCESSO);
+    printf("%d\n", vet[0] == 3);
+
+    printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 4) == SUCESSO);
+    printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, -2) == SUCESSO);
+    printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 6) == SUCESSO);
+    printf("%d\n", inserirNumeroEmEstrutura(vetorPrincipal, 2, 5) == SEM_ESPACO);
+}
 
 /*
 2 [3,4,-2,6]
@@ -392,12 +400,23 @@ void tamanhoAumentado()
     Container *container = criaContainer(1);
     insereElemento(container, 5);
 
-    aumentaTamanho(container, 1);
+    modificaTamanho(container, 1);
     int novoElemento = 10;
     insereElemento(container, novoElemento);
 
     int sucesso = container->tamanho == 2 && container->head->proximo->valor == novoElemento;
-    printf("Tamanho do conteiner é aumentado: %d\n", sucesso);
+    printf("Tamanho do container é aumentado: %d\n", sucesso);
+}
+
+void tamanhoDiminuido()
+{
+    Container *container = criaContainer(1);
+    insereElemento(container, 5);
+
+    modificaTamanho(container, -1);
+
+    int sucesso = container->tamanho == 0;
+    printf("Tamanho do container é diminuido: %d\n", sucesso);
 }
 
 void elementosCopiados()

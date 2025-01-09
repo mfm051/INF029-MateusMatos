@@ -38,8 +38,8 @@ int getDadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int v
 int getDadosOrdenadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int vetorAux[]);
 int getDadosDeTodasEstruturasAuxiliares(Container *vetorPrincipal[TAM], int vetorAux[]);
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(Container *vetorPrincipal[TAM], int vetorAux[]);
-int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);
-int getQuantidadeElementosEstruturaAuxiliar(int posicao);
+int modificarTamanhoEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int novoTamanho);
+int getQuantidadeElementosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao);
 No *montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
 void destruirListaEncadeadaComCabecote(No **inicio);

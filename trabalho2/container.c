@@ -82,9 +82,16 @@ Elemento *removeUltimoElemento(Container *container)
     return atual;
 }
 
-void aumentaTamanho(Container *container, int qtdNovosElementos)
+void modificaTamanho(Container *container, int incremento)
 {
-    container->tamanho += qtdNovosElementos;
+    container->tamanho += incremento;
+
+    // Modifica quantidade se novo tamanho for menor que a quantidade de elementos
+
+    if (container->qtd > container->tamanho)
+    {
+        container->qtd = container->tamanho;
+    }
 }
 
 void copiaElementos(Container *container, int *vetor, int posInicial)
