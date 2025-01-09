@@ -87,9 +87,9 @@ void aumentaTamanho(Container *container, int qtdNovosElementos)
     container->tamanho += qtdNovosElementos;
 }
 
-void copiaElementos(Container *container, int *vetor)
+void copiaElementos(Container *container, int *vetor, int posInicial)
 {
-    int i = 0;
+    int i = posInicial;
     Elemento *atual = container->head;
     while (atual)
     {

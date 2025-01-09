@@ -177,7 +177,7 @@ int getDadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int v
     }
 
     Container *container = vetorPrincipal[posicao];
-    copiaElementos(container, vetorAux);
+    copiaElementos(container, vetorAux, 0);
 
     return SUCESSO;
 }
@@ -217,11 +217,33 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
+int getDadosDeTodasEstruturasAuxiliares(Container *vetorPrincipal[TAM], int vetorAux[])
 {
+    int ultimaPosOcupada = 0;
+    int algumVetor = 0;
+    Container *estruturaAtual;
 
-    int retorno = 0;
-    return retorno;
+    for (int i = 0; i < TAM; i++)
+    {
+        if (vetorPrincipal[i] == NULL)
+        {
+            continue;
+        }
+
+        // Detecta que estrutura principal não está vazia
+        algumVetor = 1;
+
+        estruturaAtual = vetorPrincipal[i];
+        copiaElementos(estruturaAtual, vetorAux, ultimaPosOcupada);
+        ultimaPosOcupada += estruturaAtual->qtd;
+    }
+
+    if (!algumVetor)
+    {
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    }
+
+    return SUCESSO;
 }
 
 /*
@@ -232,11 +254,30 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(Container *vetorPrincipal[TAM], int vetorAux[])
 {
+    int qtdNumeros = 0;
+    Container *estruturaAtual;
 
-    int retorno = 0;
-    return retorno;
+    // Descobre total de números
+    for (int i = 0; i < TAM; i++)
+    {
+        if (vetorPrincipal[i])
+        {
+            estruturaAtual = vetorPrincipal[i];
+            qtdNumeros += estruturaAtual->qtd;
+        }
+    }
+
+    if (qtdNumeros == 0)
+    {
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    }
+
+    getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vetorAux);
+    ordenaVetor(vetorAux, qtdNumeros);
+
+    return SUCESSO;
 }
 
 /*

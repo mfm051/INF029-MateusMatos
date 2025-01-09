@@ -24,7 +24,7 @@ void removeElemento(Container *container, int valor);
 Elemento *encontraElemento(Container *container, int valor);
 Elemento *removeUltimoElemento(Container *container);
 void aumentaTamanho(Container *container, int qtdNovosElementos);
-void copiaElementos(Container *container, int *vetor);
+void copiaElementos(Container *container, int *vetor, int posInicial);
 Elemento *encontraUltimoElemento(Container *container);
 Elemento *criaElemento(int valor);
 // Funções auxiliares

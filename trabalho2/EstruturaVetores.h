@@ -36,8 +36,8 @@ int excluirNumeroDoFinaldaEstrutura(Container *vetorPrincipal[TAM], int posicao)
 int excluirNumeroEspecificoDeEstrutura(Container *vetorPrincipal[TAM], int posicao, int valor);
 int getDadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int vetorAux[]);
 int getDadosOrdenadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int vetorAux[]);
-int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]);
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]);
+int getDadosDeTodasEstruturasAuxiliares(Container *vetorPrincipal[TAM], int vetorAux[]);
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(Container *vetorPrincipal[TAM], int vetorAux[]);
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);
 int getQuantidadeElementosEstruturaAuxiliar(int posicao);
 No *montarListaEncadeadaComCabecote();
