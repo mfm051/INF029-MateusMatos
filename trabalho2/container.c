@@ -87,10 +87,14 @@ void modificaTamanho(Container *container, int incremento)
     container->tamanho += incremento;
 
     // Modifica quantidade se novo tamanho for menor que a quantidade de elementos
-
     if (container->qtd > container->tamanho)
     {
-        container->qtd = container->tamanho;
+        int qtdParaRemover = container->qtd - container->tamanho;
+
+        for (int i = 1; i <= qtdParaRemover; i++)
+        {
+            removeUltimoElemento(container);
+        }
     }
 }
 
