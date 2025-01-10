@@ -10,6 +10,24 @@ Container *criaContainer(int tamanho)
     return container;
 }
 
+void destroiContainer(Container *container)
+{
+    Elemento *atual;
+
+    while (container->head)
+    {
+        atual = container->head->proximo;
+
+        free(container->head);
+        container->head = NULL;
+
+        container->head = atual;
+    }
+
+    free(container);
+    container = NULL;
+}
+
 int insereElemento(Container *container, int valor)
 {
     if (container->qtd < container->tamanho)

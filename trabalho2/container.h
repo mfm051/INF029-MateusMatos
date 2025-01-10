@@ -19,6 +19,7 @@ typedef struct Container
 } Container;
 
 Container *criaContainer(int tamanho);
+void destroiContainer(Container *container);
 int insereElemento(Container *container, int valor);
 void removeElemento(Container *container, int valor);
 Elemento *encontraElemento(Container *container, int valor);
