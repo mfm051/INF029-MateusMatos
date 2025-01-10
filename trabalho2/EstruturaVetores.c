@@ -336,38 +336,6 @@ int getQuantidadeElementosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posica
 }
 
 /*
-Objetivo: montar a lista encadeada com cabeçote com todos os números presentes em todas as estruturas.
-
-Retorno (No*)
-    NULL, caso não tenha nenhum número nas listas
-    No*, ponteiro para o início da lista com cabeçote
-*/
-No *montarListaEncadeadaComCabecote()
-{
-
-    return NULL;
-}
-
-/*
-Objetivo: retorna os números da lista enceada com cabeçote armazenando em vetorAux.
-Retorno void
-*/
-void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
-{
-}
-
-/*
-Objetivo: Destruir a lista encadeada com cabeçote a partir de início.
-O ponteiro inicio deve ficar com NULL.
-
-Retorno
-    void.
-*/
-void destruirListaEncadeadaComCabecote(No **inicio)
-{
-}
-
-/*
 Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 */
@@ -396,5 +364,17 @@ int getPosicaoNoVetor(int inputPosicao)
     else
     {
         return -1;
+    }
+}
+
+void destruirEstruturasAuxiliares(Aux *vetorPrincipal[TAM])
+{
+    for (int i = 0; i < TAM; i++)
+    {
+        if (vetorPrincipal[i])
+        {
+            destroiAux(vetorPrincipal[i]);
+            vetorPrincipal[i] = NULL;
+        }
     }
 }

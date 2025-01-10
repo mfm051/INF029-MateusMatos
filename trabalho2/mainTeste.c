@@ -14,7 +14,6 @@ void testeExcluirNumeroEspecifico();
 void testeListar();
 void testeRetornarTodosNumeros();
 void testeMudarTamanhoEstrutura();
-void testeListaEncadeada();
 
 int main()
 {
@@ -49,6 +48,8 @@ void testeInserirSemNada()
     printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 0, 2) == POSICAO_INVALIDA);
     printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 11, 2) == POSICAO_INVALIDA);
     printf("\n");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
 
 void testeCriarEstrutura()
@@ -64,6 +65,8 @@ void testeCriarEstrutura()
     printf("%d ", criarEstruturaAuxiliar(vetorPrincipal, 2, 3) == SUCESSO);
     printf("%d ", criarEstruturaAuxiliar(vetorPrincipal, 2, 6) == JA_TEM_ESTRUTURA_AUXILIAR);
     printf("\n");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
 
 void testeInserirComEstrutura()
@@ -78,6 +81,8 @@ void testeInserirComEstrutura()
     printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 6) == SUCESSO);
     printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 5) == SEM_ESPACO);
     printf("\n");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
 
 void testeExcluir()
@@ -97,6 +102,8 @@ void testeExcluir()
     printf("%d ", excluirNumeroDoFinaldaEstrutura(vetorPrincipal, 2) == SUCESSO);
     printf("%d ", excluirNumeroDoFinaldaEstrutura(vetorPrincipal, 2) == ESTRUTURA_AUXILIAR_VAZIA);
     printf("\n");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
 
 void testeExcluirNumeroEspecifico()
@@ -113,6 +120,8 @@ void testeExcluirNumeroEspecifico()
     printf("%d ", excluirNumeroEspecificoDeEstrutura(vetorPrincipal, 9, 4) == SUCESSO);
     printf("%d ", excluirNumeroEspecificoDeEstrutura(vetorPrincipal, 1, 2) == SEM_ESTRUTURA_AUXILIAR);
     printf("\n");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
 
 void testeListar()
@@ -149,6 +158,8 @@ void testeListar()
     printf("%d ", excluirNumeroDoFinaldaEstrutura(vetorPrincipal, 2) == SUCESSO);
     printf("%d ", excluirNumeroDoFinaldaEstrutura(vetorPrincipal, 2) == SUCESSO);
     printf("\n");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
 
 void testeRetornarTodosNumeros()
@@ -220,6 +231,8 @@ void testeRetornarTodosNumeros()
     printf("%d ", vet[6] == 6);
     printf("%d ", vet[7] == 27);
     printf("%d\n", vet[8] == -6);
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
 /*
 2 [3,8,0]
@@ -270,4 +283,6 @@ void testeMudarTamanhoEstrutura()
     printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, -2) == SUCESSO);
     printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 6) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(vetorPrincipal, 2, 5) == SEM_ESPACO);
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }

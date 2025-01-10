@@ -42,6 +42,8 @@ void auxCriado()
 
     int sucesso = aux && aux->tamanho == 1 && aux->qtd == 0;
     printf("Auxiliar é criado: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void elementoInserido()
@@ -52,6 +54,8 @@ void elementoInserido()
 
     int sucesso = aux && aux->qtd == 1 && aux->head->valor == novoElemento;
     printf("Elemento é inserido no auxiliar não cheio: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void elementoNaoInserido()
@@ -65,6 +69,8 @@ void elementoNaoInserido()
 
     int sucesso = aux && aux->qtd == 1 && aux->head->valor == elemento;
     printf("Elemento não é inserido no auxiliar cheio: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void elementoRemovido()
@@ -84,6 +90,8 @@ void elementoRemovido()
                   // Head atualizado
                   aux->head->valor == elemento;
     printf("Elemento encontrado é removido: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void elementoNaoRemovido()
@@ -97,6 +105,8 @@ void elementoNaoRemovido()
 
     int sucesso = aux && aux->qtd == 1;
     printf("Tentativa de remoção não altera o auxiliar: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void tamanhoAumentado()
@@ -110,6 +120,8 @@ void tamanhoAumentado()
 
     int sucesso = aux->tamanho == 2 && aux->head->proximo->valor == novoElemento;
     printf("Tamanho do auxiliar é aumentado: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void tamanhoDiminuido()
@@ -121,6 +133,8 @@ void tamanhoDiminuido()
 
     int sucesso = aux->tamanho == 0;
     printf("Tamanho do auxiliar é diminuido: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void elementosCopiados()
@@ -135,6 +149,8 @@ void elementosCopiados()
 
     int sucesso = lista[0] == 1 && lista[1] == 2 && lista[2] == 3;
     printf("Elementos são copiados para um vetor: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void elementosCopiadosMeioDoVetor()
@@ -153,6 +169,8 @@ void elementosCopiadosMeioDoVetor()
                   // Valores anteriores não são alterados
                   && lista[0] == -1 && lista[1] == -1;
     printf("Elementos são copiados para um vetor em uma posição diferente da inicial: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void elementoEncontrado()
@@ -164,6 +182,8 @@ void elementoEncontrado()
 
     int sucesso = encontrado && encontrado->valor == 3;
     printf("Elemento é encontrado: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void elementoNaoEncontrado()
@@ -175,6 +195,8 @@ void elementoNaoEncontrado()
 
     int sucesso = !encontrado;
     printf("Elemento não é encontrado: %d\n", sucesso);
+
+    destroiAux(aux);
 }
 
 void ultimoElementoRemovido()
@@ -186,4 +208,6 @@ void ultimoElementoRemovido()
 
     int sucesso = removido && removido->valor == 3 && aux->qtd == 0;
     printf("Último elemento é removido: %d\n", sucesso);
+
+    destroiAux(aux);
 }

@@ -44,13 +44,20 @@ int insereElemento(Aux *aux, int valor)
 void removeElemento(Aux *aux, int valor)
 {
     if (!aux->head)
+    {
         // Não faz nada se aux for vazio
         return;
+    }
+
+    Elemento *removido;
 
     if (aux->head->valor == valor)
     {
+        // Atualiza head e remove antigo
+        removido = aux->head;
         aux->head = aux->head->proximo;
         aux->qtd--;
+        free(removido);
     }
     else
     {
@@ -61,7 +68,9 @@ void removeElemento(Aux *aux, int valor)
             if (atual->proximo->valor == valor)
             {
                 // Remove elemento
+                removido = atual->proximo;
                 atual->proximo = atual->proximo->proximo;
+                free(removido);
                 // Atualiza quantidade de elementos
                 aux->qtd--;
             }
@@ -87,6 +96,14 @@ Elemento *encontraElemento(Aux *aux, int valor)
 
 Elemento *removeUltimoElemento(Aux *aux)
 {
+    // Remoção lógica. O elemento permanece na lista, mas fica fora da "qtd"
+
+    if (!aux->head)
+    {
+        // Não faz nada se aux for vazio
+        return NULL;
+    }
+
     Elemento *atual = aux->head;
     while (atual)
     {
@@ -96,7 +113,8 @@ Elemento *removeUltimoElemento(Aux *aux)
         }
         atual = atual->proximo;
     }
-    aux->qtd = aux->qtd > 0 ? aux->qtd - 1 : aux->qtd;
+
+    aux->qtd--;
     return atual;
 }
 
