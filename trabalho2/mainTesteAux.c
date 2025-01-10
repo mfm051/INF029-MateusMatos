@@ -1,0 +1,189 @@
+// Testes para estrutura auxiliar (aux)
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "aux.h"
+
+void auxCriado();
+void elementoInserido();
+void elementoNaoInserido();
+void elementoRemovido();
+void elementoNaoRemovido();
+void tamanhoAumentado();
+void tamanhoDiminuido();
+void elementosCopiados();
+void elementosCopiadosMeioDoVetor();
+void elementoEncontrado();
+void elementoNaoEncontrado();
+void ultimoElementoRemovido();
+
+int main()
+{
+    auxCriado();
+    elementoInserido();
+    elementoNaoInserido();
+    elementoRemovido();
+    elementoNaoRemovido();
+    tamanhoAumentado();
+    tamanhoDiminuido();
+    elementosCopiados();
+    elementosCopiadosMeioDoVetor();
+    elementoEncontrado();
+    elementoNaoEncontrado();
+    ultimoElementoRemovido();
+}
+
+void auxCriado()
+{
+    int tamanho = 1;
+    Aux *aux = NULL;
+    aux = criaAux(tamanho);
+
+    int sucesso = aux && aux->tamanho == 1 && aux->qtd == 0;
+    printf("Auxiliar é criado: %d\n", sucesso);
+}
+
+void elementoInserido()
+{
+    Aux *aux = criaAux(1);
+    int novoElemento = 5;
+    insereElemento(aux, novoElemento);
+
+    int sucesso = aux && aux->qtd == 1 && aux->head->valor == novoElemento;
+    printf("Elemento é inserido no auxiliar não cheio: %d\n", sucesso);
+}
+
+void elementoNaoInserido()
+{
+    Aux *aux = criaAux(1);
+    int elemento = 5;
+    insereElemento(aux, elemento);
+    // Capacidade do aux atingida
+
+    int novoElemento = 10;
+
+    int sucesso = aux && aux->qtd == 1 && aux->head->valor == elemento;
+    printf("Elemento não é inserido no auxiliar cheio: %d\n", sucesso);
+}
+
+void elementoRemovido()
+{
+    // Aux com dois elementos de mesmo valor
+    Aux *aux = criaAux(2);
+    int elemento = 5;
+    insereElemento(aux, elemento);
+    insereElemento(aux, elemento);
+
+    // Elemento removido apenas uma vez
+    removeElemento(aux, elemento);
+
+    int sucesso = aux &&
+                  // Quantidade de elementos alterada
+                  aux->qtd == 1 &&
+                  // Head atualizado
+                  aux->head->valor == elemento;
+    printf("Elemento encontrado é removido: %d\n", sucesso);
+}
+
+void elementoNaoRemovido()
+{
+    Aux *aux = criaAux(1);
+    int elementoNoAux = 2;
+    int elementoForaDoAux = 3;
+    insereElemento(aux, elementoNoAux);
+
+    removeElemento(aux, elementoForaDoAux);
+
+    int sucesso = aux && aux->qtd == 1;
+    printf("Tentativa de remoção não altera o auxiliar: %d\n", sucesso);
+}
+
+void tamanhoAumentado()
+{
+    Aux *aux = criaAux(1);
+    insereElemento(aux, 5);
+
+    modificaTamanho(aux, 1);
+    int novoElemento = 10;
+    insereElemento(aux, novoElemento);
+
+    int sucesso = aux->tamanho == 2 && aux->head->proximo->valor == novoElemento;
+    printf("Tamanho do auxiliar é aumentado: %d\n", sucesso);
+}
+
+void tamanhoDiminuido()
+{
+    Aux *aux = criaAux(1);
+    insereElemento(aux, 5);
+
+    modificaTamanho(aux, -1);
+
+    int sucesso = aux->tamanho == 0;
+    printf("Tamanho do auxiliar é diminuido: %d\n", sucesso);
+}
+
+void elementosCopiados()
+{
+    Aux *aux = criaAux(3);
+    insereElemento(aux, 1);
+    insereElemento(aux, 2);
+    insereElemento(aux, 3);
+
+    int lista[3];
+    copiaElementos(aux, lista, 0);
+
+    int sucesso = lista[0] == 1 && lista[1] == 2 && lista[2] == 3;
+    printf("Elementos são copiados para um vetor: %d\n", sucesso);
+}
+
+void elementosCopiadosMeioDoVetor()
+{
+    Aux *aux = criaAux(3);
+    insereElemento(aux, 1);
+    insereElemento(aux, 2);
+    insereElemento(aux, 3);
+
+    int lista[5];
+    lista[0] = lista[1] = -1;
+    copiaElementos(aux, lista, 2);
+
+    // Valores são adicionados a partir da posição 2
+    int sucesso = lista[2] == 1 && lista[3] == 2 && lista[4] == 3
+                  // Valores anteriores não são alterados
+                  && lista[0] == -1 && lista[1] == -1;
+    printf("Elementos são copiados para um vetor em uma posição diferente da inicial: %d\n", sucesso);
+}
+
+void elementoEncontrado()
+{
+    Aux *aux = criaAux(1);
+    insereElemento(aux, 3);
+
+    Elemento *encontrado = encontraElemento(aux, 3);
+
+    int sucesso = encontrado && encontrado->valor == 3;
+    printf("Elemento é encontrado: %d\n", sucesso);
+}
+
+void elementoNaoEncontrado()
+{
+    Aux *aux = criaAux(1);
+    insereElemento(aux, 3);
+
+    Elemento *encontrado = encontraElemento(aux, 100);
+
+    int sucesso = !encontrado;
+    printf("Elemento não é encontrado: %d\n", sucesso);
+}
+
+void ultimoElementoRemovido()
+{
+    Aux *aux = criaAux(1);
+    insereElemento(aux, 3);
+
+    Elemento *removido = removeUltimoElemento(aux);
+
+    int sucesso = removido && removido->valor == 3 && aux->qtd == 0;
+    printf("Último elemento é removido: %d\n", sucesso);
+}

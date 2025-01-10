@@ -14,7 +14,7 @@ Rertono (int)
     SEM_ESPACO_DE_MEMORIA - Sem espaço de memória
     TAMANHO_INVALIDO - o tamanho deve ser maior ou igual a 1
 */
-int criarEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int tamanho)
+int criarEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int tamanho)
 {
     posicao = getPosicaoNoVetor(posicao);
 
@@ -36,7 +36,7 @@ int criarEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int tama
         return TAMANHO_INVALIDO;
     }
 
-    vetorPrincipal[posicao] = criaContainer(tamanho);
+    vetorPrincipal[posicao] = criaAux(tamanho);
     return SUCESSO;
 }
 
@@ -49,7 +49,7 @@ Rertono (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 CONSTANTES
 */
-int inserirNumeroEmEstrutura(Container *vetorPrincipal[TAM], int posicao, int valor)
+int inserirNumeroEmEstrutura(Aux *vetorPrincipal[TAM], int posicao, int valor)
 {
     posicao = getPosicaoNoVetor(posicao);
 
@@ -63,7 +63,7 @@ int inserirNumeroEmEstrutura(Container *vetorPrincipal[TAM], int posicao, int va
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    Container *container = vetorPrincipal[posicao];
+    Aux *container = vetorPrincipal[posicao];
 
     if (container->qtd == container->tamanho)
     {
@@ -87,7 +87,7 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int excluirNumeroDoFinaldaEstrutura(Container *vetorPrincipal[TAM], int posicao)
+int excluirNumeroDoFinaldaEstrutura(Aux *vetorPrincipal[TAM], int posicao)
 {
     posicao = getPosicaoNoVetor(posicao);
 
@@ -103,7 +103,7 @@ int excluirNumeroDoFinaldaEstrutura(Container *vetorPrincipal[TAM], int posicao)
 
     if (vetorPrincipal[posicao]->qtd > 0)
     {
-        Container *container = vetorPrincipal[posicao];
+        Aux *container = vetorPrincipal[posicao];
         removeUltimoElemento(container);
         return SUCESSO;
     }
@@ -126,7 +126,7 @@ Rertono (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 
 */
-int excluirNumeroEspecificoDeEstrutura(Container *vetorPrincipal[TAM], int posicao, int valor)
+int excluirNumeroEspecificoDeEstrutura(Aux *vetorPrincipal[TAM], int posicao, int valor)
 {
     posicao = getPosicaoNoVetor(posicao);
 
@@ -140,7 +140,7 @@ int excluirNumeroEspecificoDeEstrutura(Container *vetorPrincipal[TAM], int posic
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    Container *container = vetorPrincipal[posicao];
+    Aux *container = vetorPrincipal[posicao];
 
     if (encontraElemento(container, valor))
     {
@@ -162,7 +162,7 @@ Retorno (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int getDadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int vetorAux[])
+int getDadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[])
 {
     posicao = getPosicaoNoVetor(posicao);
 
@@ -176,7 +176,7 @@ int getDadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int v
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    Container *container = vetorPrincipal[posicao];
+    Aux *container = vetorPrincipal[posicao];
     copiaElementos(container, vetorAux, 0);
 
     return SUCESSO;
@@ -191,7 +191,7 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int getDadosOrdenadosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int vetorAux[])
+int getDadosOrdenadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[])
 {
 
     int retornoGetDados = getDadosEstruturaAuxiliar(vetorPrincipal, posicao, vetorAux);
@@ -217,11 +217,11 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosDeTodasEstruturasAuxiliares(Container *vetorPrincipal[TAM], int vetorAux[])
+int getDadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[])
 {
     int ultimaPosOcupada = 0;
     int algumVetor = 0;
-    Container *estruturaAtual;
+    Aux *estruturaAtual;
 
     for (int i = 0; i < TAM; i++)
     {
@@ -254,10 +254,10 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(Container *vetorPrincipal[TAM], int vetorAux[])
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[])
 {
     int qtdNumeros = 0;
-    Container *estruturaAtual;
+    Aux *estruturaAtual;
 
     // Descobre total de números
     for (int i = 0; i < TAM; i++)
@@ -291,7 +291,7 @@ Rertono (int)
     NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
-int modificarTamanhoEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao, int novoTamanho)
+int modificarTamanhoEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int novoTamanho)
 {
     posicao = getPosicaoNoVetor(posicao);
 
@@ -305,7 +305,7 @@ int modificarTamanhoEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posica
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    Container *container = vetorPrincipal[posicao];
+    Aux *container = vetorPrincipal[posicao];
 
     if (container->tamanho + novoTamanho <= 0)
     {
@@ -327,11 +327,11 @@ Retorno (int)
     ESTRUTURA_AUXILIAR_VAZIA - estrutura auxiliar vazia
     Um número int > 0 correpondente a quantidade de elementos preenchidos da estrutura
 */
-int getQuantidadeElementosEstruturaAuxiliar(Container *vetorPrincipal[TAM], int posicao)
+int getQuantidadeElementosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao)
 {
     posicao = getPosicaoNoVetor(posicao);
 
-    Container *container = vetorPrincipal[posicao];
+    Aux *container = vetorPrincipal[posicao];
     return container->qtd;
 }
 
