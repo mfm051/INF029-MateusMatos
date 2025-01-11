@@ -134,11 +134,14 @@ void modificaTamanho(Aux *aux, int incremento)
     }
 }
 
-void copiaElementos(Aux *aux, int *vetor, int posInicial)
+void copiaElementos(Aux *aux, int *vetor, int tamanhoVetor, int posInicial)
 {
     int i = posInicial;
     Elemento *atual = aux->head;
-    while (atual)
+
+    // Impede que escrita ultrapasse o tamanho do vetor
+    // e que alcance um elemento fora da estrutura auxiliar
+    while (atual && (i < tamanhoVetor))
     {
         vetor[i] = atual->valor;
         i++;

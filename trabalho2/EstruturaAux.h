@@ -25,7 +25,7 @@ void removeElemento(Aux *aux, int valor);
 Elemento *encontraElemento(Aux *aux, int valor);
 Elemento *removeUltimoElemento(Aux *aux);
 void modificaTamanho(Aux *aux, int incremento);
-void copiaElementos(Aux *aux, int *vetor, int posInicial);
+void copiaElementos(Aux *aux, int *vetor, int tamanhoVetor, int posInicial);
 Elemento *encontraUltimoElemento(Aux *aux);
 Elemento *criaElemento(int valor);
 // Funções auxiliares

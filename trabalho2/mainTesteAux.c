@@ -1,9 +1,9 @@
-// Testes para estrutura auxiliar (aux)
+// Testes para estrutura auxiliar (Aux)
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "aux.h"
+#include "EstruturaAux.h"
 
 void auxCriado();
 void elementoInserido();
@@ -145,7 +145,7 @@ void elementosCopiados()
     insereElemento(aux, 3);
 
     int lista[3];
-    copiaElementos(aux, lista, 0);
+    copiaElementos(aux, lista, 3, 0);
 
     int sucesso = lista[0] == 1 && lista[1] == 2 && lista[2] == 3;
     printf("Elementos são copiados para um vetor: %d\n", sucesso);
@@ -162,7 +162,7 @@ void elementosCopiadosMeioDoVetor()
 
     int lista[5];
     lista[0] = lista[1] = -1;
-    copiaElementos(aux, lista, 2);
+    copiaElementos(aux, lista, 5, 2);
 
     // Valores são adicionados a partir da posição 2
     int sucesso = lista[2] == 1 && lista[3] == 2 && lista[4] == 3

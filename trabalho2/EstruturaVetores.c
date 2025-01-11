@@ -162,7 +162,7 @@ Retorno (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int getDadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[])
+int getDadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[], int tamanhoVetorAux)
 {
     posicao = getPosicaoNoVetor(posicao);
 
@@ -177,7 +177,7 @@ int getDadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAu
     }
 
     Aux *container = vetorPrincipal[posicao];
-    copiaElementos(container, vetorAux, 0);
+    copiaElementos(container, vetorAux, tamanhoVetorAux, 0);
 
     return SUCESSO;
 }
@@ -191,15 +191,15 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int getDadosOrdenadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[])
+int getDadosOrdenadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[], int tamanhoVetorAux)
 {
 
-    int retornoGetDados = getDadosEstruturaAuxiliar(vetorPrincipal, posicao, vetorAux);
+    int retornoGetDados = getDadosEstruturaAuxiliar(vetorPrincipal, posicao, vetorAux, tamanhoVetorAux);
 
     if (retornoGetDados == SUCESSO)
     {
-        int tamanho = vetorPrincipal[getPosicaoNoVetor(posicao)]->tamanho;
-        ordenaVetor(vetorAux, tamanho);
+        int tamanhoEstrutura = vetorPrincipal[getPosicaoNoVetor(posicao)]->tamanho;
+        ordenaVetor(vetorAux, tamanhoEstrutura);
 
         return SUCESSO;
     }
@@ -217,25 +217,24 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[])
+int getDadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[], int tamanhoVetorAux)
 {
-    int ultimaPosOcupada = 0;
+    int posAtual = 0;
     int algumVetor = 0;
     Aux *estruturaAtual;
 
     for (int i = 0; i < TAM; i++)
     {
-        if (vetorPrincipal[i] == NULL)
+        if (vetorPrincipal[i])
         {
-            continue;
+            // Detecta que estrutura principal não está vazia
+            algumVetor = 1;
+
+            estruturaAtual = vetorPrincipal[i];
+            copiaElementos(estruturaAtual, vetorAux, tamanhoVetorAux, posAtual);
+
+            posAtual += estruturaAtual->qtd;
         }
-
-        // Detecta que estrutura principal não está vazia
-        algumVetor = 1;
-
-        estruturaAtual = vetorPrincipal[i];
-        copiaElementos(estruturaAtual, vetorAux, ultimaPosOcupada);
-        ultimaPosOcupada += estruturaAtual->qtd;
     }
 
     if (!algumVetor)
@@ -254,7 +253,7 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[])
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[], int tamanhoVetorAux)
 {
     int qtdNumeros = 0;
     Aux *estruturaAtual;
@@ -274,7 +273,7 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int v
         return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
     }
 
-    getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vetorAux);
+    getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vetorAux, tamanhoVetorAux);
     ordenaVetor(vetorAux, qtdNumeros);
 
     return SUCESSO;
@@ -331,8 +330,21 @@ int getQuantidadeElementosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posica
 {
     posicao = getPosicaoNoVetor(posicao);
 
-    Aux *container = vetorPrincipal[posicao];
-    return container->qtd;
+    if (posicao == -1)
+    {
+        return POSICAO_INVALIDA;
+    }
+
+    if (vetorPrincipal[posicao])
+    {
+        Aux *aux = vetorPrincipal[posicao];
+        int qtd = aux->qtd > 0 ? aux->qtd : ESTRUTURA_AUXILIAR_VAZIA;
+        return qtd;
+    }
+    else
+    {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
 }
 
 /*

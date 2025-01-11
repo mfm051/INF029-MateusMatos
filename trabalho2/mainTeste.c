@@ -152,21 +152,26 @@ void testeListar()
 
     int vet[2];
 
-    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 1, vet) == SEM_ESTRUTURA_AUXILIAR);
-    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 11, vet) == POSICAO_INVALIDA);
-    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet) == SUCESSO);
+    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 1, vet, 2) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 11, vet, 2) == POSICAO_INVALIDA);
+    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet, 2) == SUCESSO);
+    printf("\n");
 
     printf("%d ", vet[0] == 7);
     printf("%d ", vet[1] == -9);
+    printf("\n");
 
-    printf("%d ", getDadosOrdenadosEstruturaAuxiliar(vetorPrincipal, 1, vet) == SEM_ESTRUTURA_AUXILIAR);
-    printf("%d ", getDadosOrdenadosEstruturaAuxiliar(vetorPrincipal, 11, vet) == POSICAO_INVALIDA);
-    printf("%d ", getDadosOrdenadosEstruturaAuxiliar(vetorPrincipal, 2, vet) == SUCESSO);
+    printf("%d ", getDadosOrdenadosEstruturaAuxiliar(vetorPrincipal, 1, vet, 2) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getDadosOrdenadosEstruturaAuxiliar(vetorPrincipal, 11, vet, 2) == POSICAO_INVALIDA);
+    printf("%d ", getDadosOrdenadosEstruturaAuxiliar(vetorPrincipal, 2, vet, 2) == SUCESSO);
+    printf("\n");
 
     printf("%d ", vet[0] == -9);
     printf("%d ", vet[1] == 7);
+    printf("\n");
 
-    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet) == SUCESSO);
+    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet, 2) == SUCESSO);
+    printf("\n");
 
     printf("%d ", vet[0] == 7);
     printf("%d ", vet[1] == -9);
@@ -181,9 +186,9 @@ void testeRetornarTodosNumeros()
 
     show_log("testeRetornarTodosNumeros()");
     int vet1[2];
-    printf("%d ", getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet1) == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS);
+    printf("%d ", getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet1, 2) == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS);
 
-    printf("%d ", getDadosOrdenadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet1) == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS);
+    printf("%d ", getDadosOrdenadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet1, 2) == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS);
 
     printf("%d ", criarEstruturaAuxiliar(vetorPrincipal, 2, 3) == SUCESSO);
     printf("%d ", inserirNumeroEmEstrutura(vetorPrincipal, 2, 3) == SUCESSO);
@@ -212,7 +217,7 @@ void testeRetornarTodosNumeros()
 
     int vet[9];
 
-    printf("%d ", getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet) == SUCESSO);
+    printf("%d\n", getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet, 9) == SUCESSO);
 
     printf("%d ", vet[0] == 3);
     printf("%d ", vet[1] == 8);
@@ -227,7 +232,7 @@ void testeRetornarTodosNumeros()
 
     int vet2[9];
 
-    printf("%d ", getDadosOrdenadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet2) == SUCESSO);
+    printf("%d ", getDadosOrdenadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet2, 9) == SUCESSO);
 
     printf("%d ", vet2[0] == -6);
     printf("%d ", vet2[1] == 0);
@@ -240,7 +245,7 @@ void testeRetornarTodosNumeros()
     printf("%d", vet2[8] == 34);
     printf("\n");
 
-    printf("%d ", getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet) == SUCESSO);
+    printf("%d ", getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vet, 9) == SUCESSO);
 
     printf("%d ", vet[0] == 3);
     printf("%d ", vet[1] == 8);
@@ -293,25 +298,24 @@ void testeMudarTamanhoEstrutura()
 
     // modificar para tamanho de 3 para 1
     printf("%d ", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 2, -2) == SUCESSO);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 2) == 1);
+    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet, 1) == SUCESSO); // Vetor principal está sendo populado na posição 0 a partir daqui
+    printf("%d", vet[0] == 3);
+    printf("\n");
 
     /*
     2 [3]
     */
 
-    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 2) == 1);
-    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet) == SUCESSO);
-    printf("%d", vet[0] == 3);
-    printf("\n");
-
     // modificar para tamanho de 1 para 4
-    printf("%d ", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 2, 3) == SUCESSO);
+    printf("%d\n", modificarTamanhoEstruturaAuxiliar(vetorPrincipal, 2, 3) == SUCESSO);
 
     /*
     2 [3, , , ]
     */
 
     printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 2) == 1);
-    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet) == SUCESSO);
+    printf("%d ", getDadosEstruturaAuxiliar(vetorPrincipal, 2, vet, 1) == SUCESSO);
     printf("%d", vet[0] == 3);
     printf("\n");
 

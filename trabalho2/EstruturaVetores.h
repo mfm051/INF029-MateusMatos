@@ -37,10 +37,10 @@ int criarEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int tamanho);
 int inserirNumeroEmEstrutura(Aux *vetorPrincipal[TAM], int posicao, int valor);
 int excluirNumeroDoFinaldaEstrutura(Aux *vetorPrincipal[TAM], int posicao);
 int excluirNumeroEspecificoDeEstrutura(Aux *vetorPrincipal[TAM], int posicao, int valor);
-int getDadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[]);
-int getDadosOrdenadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[]);
-int getDadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[]);
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[]);
+int getDadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[], int tamanhoVetorAux);
+int getDadosOrdenadosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int vetorAux[], int tamanhoVetorAux);
+int getDadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[], int tamanhoVetorAux);
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int vetorAux[], int tamanhoVetorAux);
 int modificarTamanhoEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int novoTamanho);
 int getQuantidadeElementosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao);
 
