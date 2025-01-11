@@ -1,4 +1,4 @@
-#include "aux.h"
+#include "EstruturaAux.h"
 #include <stdlib.h>
 
 Aux *criaAux(int tamanho)

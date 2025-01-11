@@ -1,7 +1,7 @@
 #ifndef TRABALHO2_ESTRUTURAVETORES_H
 #define TRABALHO2_ESTRUTURAVETORES_H
 
-#include "aux.h"
+#include "EstruturaAux.h"
 
 #define TAM 10
 

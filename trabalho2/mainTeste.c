@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "EstruturaVetores.h"
-#include "aux.h"
+#include "EstruturaAux.h"
 
 void show_log(char *str);
 
