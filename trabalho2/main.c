@@ -8,7 +8,7 @@ enum
     SAIR = 0,
     CRIAR_ESTRUTURA,
     INSERIR,
-    EXCLUIR,
+    EXCLUIR_ELEMENTO,
     LISTAR_ESTRUTURA,
     DOBRAR_NUMERO
 };
@@ -21,7 +21,7 @@ void printMenu()
     printf("%d - Sair\n", SAIR);
     printf("%d - Criar estrutura\n", CRIAR_ESTRUTURA);
     printf("%d - Inserir\n", INSERIR);
-    printf("%d - Excluir\n", EXCLUIR);
+    printf("%d - Excluir elemento de estrutura\n", EXCLUIR_ELEMENTO);
     printf("%d - Listar uma estrutura\n", LISTAR_ESTRUTURA);
     printf("%d - Dobrar Numero\n", DOBRAR_NUMERO);
     printf("=> ");
@@ -94,7 +94,7 @@ int main()
 
         case INSERIR:
         {
-            printf("Informe a posição da estrutura: ");
+            printf("Informe a posição da estrutura (entre 1 e 10): ");
             int pos = getNumero();
             printf("\n");
 
@@ -122,11 +122,35 @@ int main()
             break;
         }
 
-            // case 2:
-            // { // excluir
-            //     // TODO
-            //     break;
-            // }
+        case EXCLUIR_ELEMENTO:
+        {
+            printf("Informe posição para exclusão (entre 1 e 10): ");
+            int pos = getNumero();
+            printf("\n");
+
+            printf("Informe valor a ser excluído: ");
+            int valor = getNumero();
+            printf("\n");
+
+            ret = excluirNumeroEspecificoDeEstrutura(vetorPrincipal, pos, valor);
+            if (ret == SUCESSO)
+            {
+                printf("Excluído com sucesso\n");
+            }
+            else if (ret == SEM_ESTRUTURA_AUXILIAR)
+            {
+                printf("Sem estrutura Auxiliar\n");
+            }
+            else if (ret == NUMERO_INEXISTENTE)
+            {
+                printf("Número inexistente na estrutura\n");
+            }
+            else if (ret == POSICAO_INVALIDA)
+            {
+                printf("Posição inválida. Deve ser um número entre 1 e 10\n");
+            }
+            break;
+        }
 
             // case 3:
             // { // recuperar dados estrutura auxiliar
