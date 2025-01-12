@@ -3,111 +3,176 @@
 
 #include "EstruturaVetores.h"
 
-int menu();
-
-void dobrar(int *x);
-
-int menu()
+enum
 {
-    int op;
-    printf("Digite as opção desejada\n");
-    printf("0 - Sair\n");
-    printf("1 - Inserir\n");
-    printf("2 - Excluir\n");
-    printf("3 - Listar uma estrutura\n");
-    printf("4 - Dobrar Numero\n");
-    printf("5 - \n");
-    scanf("%d", &op);
-    return op;
+    SAIR = 0,
+    CRIAR_ESTRUTURA,
+    INSERIR,
+    EXCLUIR,
+    LISTAR_ESTRUTURA,
+    DOBRAR_NUMERO
+};
+
+// void dobrar(int *x);
+
+void printMenu()
+{
+    printf("\nDigite a opção desejada\n");
+    printf("%d - Sair\n", SAIR);
+    printf("%d - Criar estrutura\n", CRIAR_ESTRUTURA);
+    printf("%d - Inserir\n", INSERIR);
+    printf("%d - Excluir\n", EXCLUIR);
+    printf("%d - Listar uma estrutura\n", LISTAR_ESTRUTURA);
+    printf("%d - Dobrar Numero\n", DOBRAR_NUMERO);
+    printf("=> ");
+}
+
+int getNumero()
+{
+    char entradaUsuario[50];
+    int num;
+
+    fgets(entradaUsuario, sizeof(entradaUsuario), stdin);
+    sscanf(entradaUsuario, "%d\n", &num);
+
+    return num;
 }
 
 int main()
 {
-    inicializar();
+    Aux *vetorPrincipal[TAM] = {NULL};
+
+    // inicializar();
     int op;
     int sair = 0;
     int ret;
+
     while (!sair)
     {
-        op = menu();
+        printMenu();
+        op = getNumero();
+        printf("\n");
         switch (op)
         {
-        case 0:
+        case SAIR:
         {
             sair = 1;
-            finalizar();
+            // finalizar();
             break;
         }
-        case 1:
-        { //inserir
-            //TODO
-            ret = inserirNumeroEmEstrutura(5, 25);
+
+        case CRIAR_ESTRUTURA:
+        {
+            printf("Informe a posição da nova estrutura (entre 1 e 10): ");
+            int pos = getNumero();
+            printf("\n");
+
+            printf("Informe o tamanho da estrutura (deve ser maior que 0)\n");
+            int tamanho = getNumero();
+            printf("\n");
+
+            ret = criarEstruturaAuxiliar(vetorPrincipal, pos, tamanho);
+
             if (ret == SUCESSO)
             {
-                printf("Inserido com sucesso");
+                printf("Criado com sucesso\n");
+            }
+            else if (ret == JA_TEM_ESTRUTURA_AUXILIAR)
+            {
+                printf("Posição já tem estrutura auxiliar\n");
+            }
+            else if (ret == TAMANHO_INVALIDO)
+            {
+                printf("Tamanho inválido. Deve ser maior que 0\n");
+            }
+            else if (ret == POSICAO_INVALIDA)
+            {
+                printf("Posição inválida. Deve ser um número entre 1 e 10\n");
+            }
+            break;
+        }
+
+        case INSERIR:
+        {
+            printf("Informe a posição da estrutura: ");
+            int pos = getNumero();
+            printf("\n");
+
+            printf("Informe o número a ser inserido: ");
+            int num = getNumero();
+            printf("\n");
+
+            ret = inserirNumeroEmEstrutura(vetorPrincipal, pos, num);
+            if (ret == SUCESSO)
+            {
+                printf("Inserido com sucesso\n");
             }
             else if (ret == SEM_ESPACO)
             {
-                printf("Sem Espaço");
+                printf("Sem espaço\n");
             }
             else if (ret == SEM_ESTRUTURA_AUXILIAR)
             {
-                printf("Sem estrutura Auxiliar");
+                printf("Sem estrutura Auxiliar\n");
             }
-            break;
-        }
-
-        case 2:
-        { //excluir
-            //TODO
-            break;
-        }
-
-        case 3:
-        { //recuperar dados estrutura auxiliar
-            int posicao, retorno;
-            printf("Qual a estrutura a ser listada (1..10)?");
-            scanf("%d", &posicao);
-
-            int qtd = getQuantidadeElementosEstruturaAuxiliar(posicao);
-
-            if (qtd == POSICAO_INVALIDA)
+            else if (ret == POSICAO_INVALIDA)
             {
-                printf("Posição inválida");
-            }
-            else
-            { // existe elemento
-                int vetorAux[qtd];
-
-                retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
-
-                if (retorno == SUCESSO)
-                {
-                    //imprimir para os dados para o usuário
-                    int i = 0;
-                    for (; i < qtd; i++)
-                    {
-                        printf("%d", vetorAux[i]);
-                    }
-                }
+                printf("Posição inválida. Deve ser um número entre 1 e 10\n");
             }
             break;
         }
 
-        case 10:
-        { //dobrar
-            //ler um numero
-            int valor;
-            scanf("%i", &valor);
+            // case 2:
+            // { // excluir
+            //     // TODO
+            //     break;
+            // }
 
-            dobrar(&valor);
+            // case 3:
+            // { // recuperar dados estrutura auxiliar
+            //   // int posicao, retorno;
+            //   // printf("Qual a estrutura a ser listada (1..10)?");
+            //   // scanf("%d", &posicao);
 
-            //passar para um funcao (void dobrar(...)) que recebe o numero e dobra (EstruturaVetores.c)
+            //     // int qtd = getQuantidadeElementosEstruturaAuxiliar(posicao);
 
-            printf("%i", valor);
+            //     // if (qtd == POSICAO_INVALIDA)
+            //     // {
+            //     //     printf("Posição inválida");
+            //     // }
+            //     // else
+            //     // { // existe elemento
+            //     //     int vetorAux[qtd];
 
-            break;
-        }
+            //     //     retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
+
+            //     //     if (retorno == SUCESSO)
+            //     //     {
+            //     //         // imprimir para os dados para o usuário
+            //     //         int i = 0;
+            //     //         for (; i < qtd; i++)
+            //     //         {
+            //     //             printf("%d", vetorAux[i]);
+            //     //         }
+            //     //     }
+            //     // }
+            //     // break;
+            // }
+
+            // case 10:
+            // { // dobrar
+            //   // ler um numero
+            //   // int valor;
+            //   // scanf("%i", &valor);
+
+            //     // dobrar(&valor);
+
+            //     // // passar para um funcao (void dobrar(...)) que recebe o numero e dobra (EstruturaVetores.c)
+
+            //     // printf("%i", valor);
+
+            //     // break;
+            // }
 
         default:
         {
