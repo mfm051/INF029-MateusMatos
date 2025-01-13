@@ -5,9 +5,9 @@
 
 enum
 {
-    SAIR = 0,
+    SAIR = 1,
     CRIAR_ESTRUTURA,
-    INSERIR,
+    INSERIR_ELEMENTO,
     EXCLUIR_ELEMENTO,
     LISTAR_ESTRUTURA,
     DOBRAR_NUMERO
@@ -20,7 +20,7 @@ void printMenu()
     printf("\nDigite a opção desejada\n");
     printf("%d - Sair\n", SAIR);
     printf("%d - Criar estrutura\n", CRIAR_ESTRUTURA);
-    printf("%d - Inserir\n", INSERIR);
+    printf("%d - Inserir elemento\n", INSERIR_ELEMENTO);
     printf("%d - Excluir elemento de estrutura\n", EXCLUIR_ELEMENTO);
     printf("%d - Listar uma estrutura\n", LISTAR_ESTRUTURA);
     printf("%d - Dobrar Numero\n", DOBRAR_NUMERO);
@@ -67,7 +67,7 @@ int main()
             int pos = getNumero();
             printf("\n");
 
-            printf("Informe o tamanho da estrutura (deve ser maior que 0)\n");
+            printf("Informe o tamanho da estrutura (deve ser maior que 0): ");
             int tamanho = getNumero();
             printf("\n");
 
@@ -92,7 +92,7 @@ int main()
             break;
         }
 
-        case INSERIR:
+        case INSERIR_ELEMENTO:
         {
             printf("Informe a posição da estrutura (entre 1 e 10): ");
             int pos = getNumero();
@@ -152,36 +152,48 @@ int main()
             break;
         }
 
-            // case 3:
-            // { // recuperar dados estrutura auxiliar
-            //   // int posicao, retorno;
-            //   // printf("Qual a estrutura a ser listada (1..10)?");
-            //   // scanf("%d", &posicao);
+        case LISTAR_ESTRUTURA:
+        {
+            printf("Informe a posição da estrutura a ser listada (entre 1 e 10): ");
+            int pos = getNumero();
+            printf("\n");
 
-            //     // int qtd = getQuantidadeElementosEstruturaAuxiliar(posicao);
+            int qtd = getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, pos);
 
-            //     // if (qtd == POSICAO_INVALIDA)
-            //     // {
-            //     //     printf("Posição inválida");
-            //     // }
-            //     // else
-            //     // { // existe elemento
-            //     //     int vetorAux[qtd];
+            if (qtd == POSICAO_INVALIDA)
+            {
+                printf("Posição inválida\n");
+            }
+            else if (qtd == ESTRUTURA_AUXILIAR_VAZIA)
+            {
+                printf("Estrutura vazia\n");
+            }
+            else if (qtd == SEM_ESTRUTURA_AUXILIAR)
+            {
+                printf("Sem estrutura Auxiliar\n");
+            }
+            else
+            { // existe elemento
+                int vetorAux[qtd];
 
-            //     //     retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
+                ret = getDadosEstruturaAuxiliar(vetorPrincipal, pos, vetorAux, qtd);
 
-            //     //     if (retorno == SUCESSO)
-            //     //     {
-            //     //         // imprimir para os dados para o usuário
-            //     //         int i = 0;
-            //     //         for (; i < qtd; i++)
-            //     //         {
-            //     //             printf("%d", vetorAux[i]);
-            //     //         }
-            //     //     }
-            //     // }
-            //     // break;
-            // }
+                if (ret == SUCESSO)
+                {
+                    // imprimir para os dados para o usuário
+                    for (int i = 0; i < qtd; i++)
+                    {
+                        printf("%d", vetorAux[i]);
+                        if (i + 1 < qtd)
+                        {
+                            printf(", ");
+                        }
+                    }
+                    printf("\n");
+                }
+            }
+            break;
+        }
 
             // case 10:
             // { // dobrar
