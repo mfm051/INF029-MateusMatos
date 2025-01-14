@@ -20,12 +20,6 @@ void testeDobrarNumero();
 
 int main()
 {
-    /*
-        Função não utilizada. Verificar EstruturaVetores.h:
-
-        inicializar();
-    */
-
     testeInserirSemNada();
     testeCriarEstrutura();
     testeInserirComEstrutura();
@@ -36,12 +30,6 @@ int main()
     testeMudarTamanhoEstrutura();
     testeObterQuantidadeTotalNumeros();
     testeDobrarNumero();
-
-    /*
-        Função não utilizada. Verificar EstruturaVetores.h:
-
-        finalizar();
-    */
 }
 int ligado = 1;
 void show_log(char *str)

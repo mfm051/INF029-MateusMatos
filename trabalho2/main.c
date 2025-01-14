@@ -288,7 +288,7 @@ int main()
             sscanf(entrada, "%d\n", &valor);
             printf("\n");
 
-            // // passar para um funcao (void dobrar(...)) que recebe o numero e dobra (EstruturaVetores.c)
+            // passar para um funcao (void dobrar(...)) que recebe o numero e dobra (EstruturaVetores.c)
             dobrar(&valor);
 
             printf("%d\n", valor);
@@ -303,7 +303,6 @@ int main()
         }
     }
 
-    // Libera memória
     destruirEstruturasAuxiliares(vetorPrincipal);
 
     return 0;
