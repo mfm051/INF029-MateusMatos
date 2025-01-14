@@ -290,7 +290,7 @@ Rertono (int)
     NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
-int modificarTamanhoEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int novoTamanho)
+int modificarTamanhoEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int valorExtra)
 {
     posicao = getPosicaoNoVetor(posicao);
 
@@ -306,13 +306,13 @@ int modificarTamanhoEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int
 
     Aux *container = vetorPrincipal[posicao];
 
-    if (container->tamanho + novoTamanho <= 0)
+    if (container->tamanho + valorExtra <= 0)
     {
         return NOVO_TAMANHO_INVALIDO;
     }
     else
     {
-        modificaTamanho(container, novoTamanho);
+        modificaTamanho(container, valorExtra);
         return SUCESSO;
     }
 }

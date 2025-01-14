@@ -10,6 +10,7 @@ enum
     INSERIR_ELEMENTO,
     EXCLUIR_ELEMENTO,
     LISTAR_ESTRUTURA,
+    AUMENTAR_TAMANHO,
     DOBRAR_NUMERO
 };
 
@@ -23,6 +24,7 @@ void printMenu()
     printf("%d - Inserir elemento\n", INSERIR_ELEMENTO);
     printf("%d - Excluir elemento de estrutura\n", EXCLUIR_ELEMENTO);
     printf("%d - Listar uma estrutura\n", LISTAR_ESTRUTURA);
+    printf("%d - Aumentar tamanho de estrutura\n", AUMENTAR_TAMANHO);
     printf("%d - Dobrar Numero\n", DOBRAR_NUMERO);
     printf("=> ");
 }
@@ -209,7 +211,36 @@ int main()
 
             //     // break;
             // }
+        case AUMENTAR_TAMANHO:
+        {
+            printf("Informe a posição da estrutura: ");
+            int pos = getNumero();
+            printf("\n");
 
+            printf("Informe o quanto quer aumentar a estrutura: ");
+            int valorExtra = getNumero();
+            printf("\n");
+
+            ret = modificarTamanhoEstruturaAuxiliar(vetorPrincipal, pos, valorExtra);
+
+            if (ret == SUCESSO)
+            {
+                printf("Tamanho modificado com sucesso\n");
+            }
+            else if (ret == SEM_ESTRUTURA_AUXILIAR)
+            {
+                printf("Sem estrutura auxiliar\n");
+            }
+            else if (ret == POSICAO_INVALIDA)
+            {
+                printf("Posição inválida\n");
+            }
+            else if (ret == NOVO_TAMANHO_INVALIDO)
+            {
+                printf("Valor inválido. Estrutura deve ter tamanho maior que zero\n");
+            }
+            break;
+        }
         default:
         {
             printf("opcao inválida\n");

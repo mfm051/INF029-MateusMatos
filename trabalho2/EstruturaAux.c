@@ -118,9 +118,9 @@ Elemento *removeUltimoElemento(Aux *aux)
     return atual;
 }
 
-void modificaTamanho(Aux *aux, int incremento)
+void modificaTamanho(Aux *aux, int valorExtra)
 {
-    aux->tamanho += incremento;
+    aux->tamanho += valorExtra;
 
     // Modifica quantidade se novo tamanho for menor que a quantidade de elementos
     if (aux->qtd > aux->tamanho)
