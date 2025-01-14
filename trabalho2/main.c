@@ -184,6 +184,16 @@ int main()
 
                 if (ret == SUCESSO)
                 {
+                    char opcaoUsuario[5];
+                    printf("Fazer listagem ordenada? [s/n]: ");
+                    fgets(opcaoUsuario, sizeof(opcaoUsuario), stdin);
+                    printf("\n");
+
+                    if (opcaoUsuario[0] == 's')
+                    {
+                        ordenaVetor(vetorAux, qtd);
+                    }
+
                     // imprimir para os dados para o usuário
                     for (int i = 0; i < qtd; i++)
                     {
@@ -211,6 +221,16 @@ int main()
 
             int vetorAux[qtdTotal];
             ret = getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vetorAux, qtdTotal);
+
+            char opcaoUsuario[5];
+            printf("Fazer listagem ordenada? [s/n]: ");
+            fgets(opcaoUsuario, sizeof(opcaoUsuario), stdin);
+            printf("\n");
+
+            if (opcaoUsuario[0] == 's')
+            {
+                ordenaVetor(vetorAux, qtdTotal);
+            }
 
             // imprimir para os dados para o usuário
             for (int i = 0; i < qtdTotal; i++)
