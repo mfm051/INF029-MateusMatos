@@ -16,6 +16,7 @@ void testeRetornarTodosNumeros();
 void testeMudarTamanhoEstrutura();
 // Testes adicionados pelo aluno
 void testeObterQuantidadeTotalNumeros();
+void testeDobrarNumero();
 
 int main()
 {
@@ -31,6 +32,7 @@ int main()
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
     testeObterQuantidadeTotalNumeros();
+    testeDobrarNumero();
 
     finalizar();
 }
@@ -356,5 +358,25 @@ void testeObterQuantidadeTotalNumeros()
     3 [1, 2]
     */
 
-    printf("%d\n", getQuantidadeTotalElementos(vetorPrincipal) == 3);
+    printf("%d", getQuantidadeTotalElementos(vetorPrincipal) == 3);
+    printf("\n");
+}
+
+void testeDobrarNumero()
+{
+    int num = 5;
+    int outroNum = 0;
+    int maisUmNum = -1;
+
+    show_log("testeDobrarNumero()");
+
+    dobrar(&num);       // 5 => 10
+    dobrar(&num);       // 10 => 20
+    dobrar(&outroNum);  // 0 => 0
+    dobrar(&maisUmNum); // -1 => -2
+
+    printf("%d ", num == 20);
+    printf("%d ", outroNum == 0);
+    printf("%d", maisUmNum == -2);
+    printf("\n");
 }

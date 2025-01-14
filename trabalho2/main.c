@@ -246,20 +246,6 @@ int main()
             break;
         }
 
-            // case 10:
-            // { // dobrar
-            //   // ler um numero
-            //   // int valor;
-            //   // scanf("%i", &valor);
-
-            //     // dobrar(&valor);
-
-            //     // // passar para um funcao (void dobrar(...)) que recebe o numero e dobra (EstruturaVetores.c)
-
-            //     // printf("%i", valor);
-
-            //     // break;
-            // }
         case AUMENTAR_TAMANHO:
         {
             printf("Informe a posição da estrutura: ");
@@ -290,6 +276,26 @@ int main()
             }
             break;
         }
+
+        case DOBRAR_NUMERO:
+        { // dobrar
+            // ler um numero
+            int valor;
+            char entrada[50];
+
+            printf("Informe um valor: ");
+            fgets(entrada, sizeof(entrada), stdin);
+            sscanf(entrada, "%d\n", &valor);
+            printf("\n");
+
+            // // passar para um funcao (void dobrar(...)) que recebe o numero e dobra (EstruturaVetores.c)
+            dobrar(&valor);
+
+            printf("%d\n", valor);
+
+            break;
+        }
+
         default:
         {
             printf("opcao inválida\n");

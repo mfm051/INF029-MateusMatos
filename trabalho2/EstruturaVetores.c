@@ -420,3 +420,8 @@ int getQuantidadeTotalElementos(Aux *vetorPrincipal[TAM])
         return qtdTotal;
     }
 }
+
+void dobrar(int *x)
+{
+    *x *= 2;
+}
