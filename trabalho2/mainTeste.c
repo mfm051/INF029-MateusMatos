@@ -14,6 +14,8 @@ void testeExcluirNumeroEspecifico();
 void testeListar();
 void testeRetornarTodosNumeros();
 void testeMudarTamanhoEstrutura();
+// Testes adicionados pelo aluno
+void testeObterQuantidadeTotalNumeros();
 
 int main()
 {
@@ -28,6 +30,7 @@ int main()
     testeListar();
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
+    testeObterQuantidadeTotalNumeros();
 
     finalizar();
 }
@@ -331,4 +334,27 @@ void testeMudarTamanhoEstrutura()
     printf("\n");
 
     destruirEstruturasAuxiliares(vetorPrincipal);
+}
+
+void testeObterQuantidadeTotalNumeros()
+{
+    Aux *vetorPrincipal[TAM] = {NULL};
+
+    show_log("testeObterQuantidadeTotalNumeros()");
+
+    printf("%d ", getQuantidadeTotalElementos(vetorPrincipal) == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS);
+
+    criarEstruturaAuxiliar(vetorPrincipal, 1, 2);
+    inserirNumeroEmEstrutura(vetorPrincipal, 1, 1);
+
+    criarEstruturaAuxiliar(vetorPrincipal, 3, 2);
+    inserirNumeroEmEstrutura(vetorPrincipal, 3, 1);
+    inserirNumeroEmEstrutura(vetorPrincipal, 3, 2);
+
+    /*
+    1 [1, ]
+    3 [1, 2]
+    */
+
+    printf("%d\n", getQuantidadeTotalElementos(vetorPrincipal) == 3);
 }

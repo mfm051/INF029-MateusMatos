@@ -366,6 +366,8 @@ void finalizar()
 {
 }
 
+// Funções adicionadas pelo aluno
+
 int getPosicaoNoVetor(int inputPosicao)
 {
     // Devolve posição como índice no vetor
@@ -388,5 +390,33 @@ void destruirEstruturasAuxiliares(Aux *vetorPrincipal[TAM])
             destroiAux(vetorPrincipal[i]);
             vetorPrincipal[i] = NULL;
         }
+    }
+}
+
+/*
+Retorno (int)
+    TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
+    Um número int > 0 correpondente a quantidade de elementos preenchidos da estrutura
+*/
+
+int getQuantidadeTotalElementos(Aux *vetorPrincipal[TAM])
+{
+    int qtdTotal = 0;
+
+    for (int i = 0; i < TAM; i++)
+    {
+        if (vetorPrincipal[i])
+        {
+            qtdTotal += vetorPrincipal[i]->qtd;
+        }
+    }
+
+    if (qtdTotal == 0)
+    {
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    }
+    else
+    {
+        return qtdTotal;
     }
 }

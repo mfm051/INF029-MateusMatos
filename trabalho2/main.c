@@ -10,6 +10,7 @@ enum
     INSERIR_ELEMENTO,
     EXCLUIR_ELEMENTO,
     LISTAR_ESTRUTURA,
+    LISTAR_TODAS_ESTRUTURAS,
     AUMENTAR_TAMANHO,
     DOBRAR_NUMERO
 };
@@ -24,6 +25,7 @@ void printMenu()
     printf("%d - Inserir elemento\n", INSERIR_ELEMENTO);
     printf("%d - Excluir elemento de estrutura\n", EXCLUIR_ELEMENTO);
     printf("%d - Listar uma estrutura\n", LISTAR_ESTRUTURA);
+    printf("%d - Listar todas as estruturas\n", LISTAR_TODAS_ESTRUTURAS);
     printf("%d - Aumentar tamanho de estrutura\n", AUMENTAR_TAMANHO);
     printf("%d - Dobrar Numero\n", DOBRAR_NUMERO);
     printf("=> ");
@@ -194,6 +196,33 @@ int main()
                     printf("\n");
                 }
             }
+            break;
+        }
+
+        case LISTAR_TODAS_ESTRUTURAS:
+        {
+            int qtdTotal = getQuantidadeTotalElementos(vetorPrincipal);
+
+            if (qtdTotal == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS)
+            {
+                printf("Não há números adicionados\n");
+                break;
+            }
+
+            int vetorAux[qtdTotal];
+            ret = getDadosDeTodasEstruturasAuxiliares(vetorPrincipal, vetorAux, qtdTotal);
+
+            // imprimir para os dados para o usuário
+            for (int i = 0; i < qtdTotal; i++)
+            {
+                printf("%d", vetorAux[i]);
+                if (i + 1 < qtdTotal)
+                {
+                    printf(", ");
+                }
+            }
+            printf("\n");
+
             break;
         }
 

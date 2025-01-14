@@ -57,5 +57,6 @@ void dobrar(int *x);
 // Funções adicionadas pelo aluno
 int getPosicaoNoVetor(int inputPosicao);
 void destruirEstruturasAuxiliares(Aux *vetorPrincipal[TAM]);
+int getQuantidadeTotalElementos(Aux *vetorPrincipal[TAM]);
 
 #endif // TRABALHO2_ESTRUTURAVETORES_H
