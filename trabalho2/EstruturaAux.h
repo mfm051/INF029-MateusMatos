@@ -28,7 +28,5 @@ void modificaTamanho(Aux *aux, int incremento);
 void copiaElementos(Aux *aux, int *vetor, int tamanhoVetor, int posInicial);
 Elemento *encontraUltimoElemento(Aux *aux);
 Elemento *criaElemento(int valor);
-// Funções auxiliares
-void ordenaVetor(int *vetor, int tamanho);
 
 #endif // AUX_H

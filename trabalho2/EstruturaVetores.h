@@ -25,7 +25,7 @@ enum
 };
 
 // Struct não utilizado
-// Uma solução semelhante está presente em aux.c/aux.h
+// Uma solução semelhante está presente em EstruturaAux.c/EstruturaAux.h
 
 // typedef struct reg
 // {
@@ -44,19 +44,29 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(Aux *vetorPrincipal[TAM], int v
 int modificarTamanhoEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao, int novoTamanho);
 int getQuantidadeElementosEstruturaAuxiliar(Aux *vetorPrincipal[TAM], int posicao);
 
-// Funções não adicionadas pois estão contempladas na estrutura auxiliar:
+/*
+    Funções não adicionadas pois estão contempladas na estrutura auxiliar:
 
-// No *montarListaEncadeadaComCabecote();
-// void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
-// void destruirListaEncadeadaComCabecote(No **inicio);
+    No *montarListaEncadeadaComCabecote();
+    void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
+    void destruirListaEncadeadaComCabecote(No **inicio);
 
-void inicializar();
-void finalizar();
+*/
+
+/*
+    Funções não utilizadas, devido ao vetorPrincipal
+    não ser um parâmetro global:
+
+    void inicializar();
+    void finalizar();
+*/
+
 void dobrar(int *x);
 
 // Funções adicionadas pelo aluno
 int getPosicaoNoVetor(int inputPosicao);
 void destruirEstruturasAuxiliares(Aux *vetorPrincipal[TAM]);
 int getQuantidadeTotalElementos(Aux *vetorPrincipal[TAM]);
+void ordenaVetor(int *vetor, int tamanho);
 
 #endif // TRABALHO2_ESTRUTURAVETORES_H

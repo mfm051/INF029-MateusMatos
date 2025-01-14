@@ -20,9 +20,12 @@ void testeDobrarNumero();
 
 int main()
 {
-    inicializar();
+    /*
+        Função não utilizada. Verificar EstruturaVetores.h:
 
-    printf("\n\nTestes de integração estruturas principal/secundária\n\n");
+        inicializar();
+    */
+
     testeInserirSemNada();
     testeCriarEstrutura();
     testeInserirComEstrutura();
@@ -34,7 +37,11 @@ int main()
     testeObterQuantidadeTotalNumeros();
     testeDobrarNumero();
 
-    finalizar();
+    /*
+        Função não utilizada. Verificar EstruturaVetores.h:
+
+        finalizar();
+    */
 }
 int ligado = 1;
 void show_log(char *str)

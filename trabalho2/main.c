@@ -303,5 +303,8 @@ int main()
         }
     }
 
+    // Libera memória
+    destruirEstruturasAuxiliares(vetorPrincipal);
+
     return 0;
 }

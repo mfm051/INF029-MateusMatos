@@ -171,20 +171,3 @@ Elemento *criaElemento(int valor)
     elemento->proximo = NULL;
     return elemento;
 }
-
-void ordenaVetor(int *vetor, int tamanho)
-{
-    // Ordenação por insertion sort
-    int key, j, temp;
-    for (int i = 1; i < tamanho; i++)
-    {
-        key = vetor[i];
-        j = i - 1;
-        while (j >= 0 && vetor[j] > key)
-        {
-            vetor[j + 1] = vetor[j];
-            j--;
-        }
-        vetor[j + 1] = key;
-    }
-}
