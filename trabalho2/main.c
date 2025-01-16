@@ -7,11 +7,12 @@ enum
 {
     SAIR = 1,
     CRIAR_ESTRUTURA,
+    LISTAR_ESTRUTURA,
+    AUMENTAR_TAMANHO,
+    LISTAR_TODAS_ESTRUTURAS,
     INSERIR_ELEMENTO,
     EXCLUIR_ELEMENTO,
-    LISTAR_ESTRUTURA,
-    LISTAR_TODAS_ESTRUTURAS,
-    AUMENTAR_TAMANHO,
+    LISTAR_TODOS_NUMEROS,
     DOBRAR_NUMERO
 };
 
@@ -22,11 +23,12 @@ void printMenu()
     printf("\nDigite a opção desejada\n");
     printf("%d - Sair\n", SAIR);
     printf("%d - Criar estrutura\n", CRIAR_ESTRUTURA);
-    printf("%d - Inserir elemento\n", INSERIR_ELEMENTO);
-    printf("%d - Excluir elemento de estrutura\n", EXCLUIR_ELEMENTO);
-    printf("%d - Listar uma estrutura\n", LISTAR_ESTRUTURA);
-    printf("%d - Listar todas as estruturas\n", LISTAR_TODAS_ESTRUTURAS);
+    printf("%d - Listar números de estrutura\n", LISTAR_ESTRUTURA);
     printf("%d - Aumentar tamanho de estrutura\n", AUMENTAR_TAMANHO);
+    printf("%d - Listar todas as estruturas\n", LISTAR_TODAS_ESTRUTURAS);
+    printf("%d - Inserir número\n", INSERIR_ELEMENTO);
+    printf("%d - Excluir número\n", EXCLUIR_ELEMENTO);
+    printf("%d - Listar todos os números\n", LISTAR_TODOS_NUMEROS);
     printf("%d - Dobrar Numero\n", DOBRAR_NUMERO);
     printf("=> ");
 }
@@ -96,6 +98,135 @@ int main()
             break;
         }
 
+        case LISTAR_ESTRUTURA:
+        {
+            printf("Informe a posição da estrutura a ser listada (entre 1 e 10): ");
+            int pos = getNumero();
+            printf("\n");
+
+            int qtd = getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, pos);
+
+            if (qtd == POSICAO_INVALIDA)
+            {
+                printf("Posição inválida\n");
+            }
+            else if (qtd == ESTRUTURA_AUXILIAR_VAZIA)
+            {
+                printf("Estrutura vazia\n");
+            }
+            else if (qtd == SEM_ESTRUTURA_AUXILIAR)
+            {
+                printf("Sem estrutura Auxiliar\n");
+            }
+            else
+            { // existe elemento
+                int vetorAux[qtd];
+
+                ret = getDadosEstruturaAuxiliar(vetorPrincipal, pos, vetorAux, qtd);
+
+                if (ret == SUCESSO)
+                {
+                    char opcaoUsuario[5];
+                    printf("Fazer listagem ordenada? [s/n]: ");
+                    fgets(opcaoUsuario, sizeof(opcaoUsuario), stdin);
+                    printf("\n");
+
+                    if (opcaoUsuario[0] == 's')
+                    {
+                        ordenaVetor(vetorAux, qtd);
+                    }
+
+                    // imprimir para os dados para o usuário
+                    for (int i = 0; i < qtd; i++)
+                    {
+                        printf("%d", vetorAux[i]);
+                        if (i + 1 < qtd)
+                        {
+                            printf(", ");
+                        }
+                    }
+                    printf("\n");
+                }
+            }
+            break;
+        }
+
+        case AUMENTAR_TAMANHO:
+        {
+            printf("Informe a posição da estrutura: ");
+            int pos = getNumero();
+            printf("\n");
+
+            printf("Informe o quanto quer aumentar a estrutura: ");
+            int valorExtra = getNumero();
+            printf("\n");
+
+            ret = modificarTamanhoEstruturaAuxiliar(vetorPrincipal, pos, valorExtra);
+
+            if (ret == SUCESSO)
+            {
+                printf("Tamanho modificado com sucesso\n");
+            }
+            else if (ret == SEM_ESTRUTURA_AUXILIAR)
+            {
+                printf("Sem estrutura auxiliar\n");
+            }
+            else if (ret == POSICAO_INVALIDA)
+            {
+                printf("Posição inválida\n");
+            }
+            else if (ret == NOVO_TAMANHO_INVALIDO)
+            {
+                printf("Valor inválido. Estrutura deve ter tamanho maior que zero\n");
+            }
+            break;
+        }
+
+        case LISTAR_TODAS_ESTRUTURAS:
+        {
+            int qtdAtual;
+
+            for (int pos = 1; pos <= TAM; pos++)
+            // Começando do número 1, pois representa posição como o usuário vê
+            {
+                printf("[%d] ", pos);
+
+                qtdAtual = getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, pos);
+
+                if (qtdAtual == SEM_ESTRUTURA_AUXILIAR)
+                {
+                    printf("Sem estrutura auxiliar");
+                }
+                else
+                {
+                    int tamanho = vetorPrincipal[pos - 1]->tamanho;
+                    printf("(tamanho %d) => ", tamanho);
+
+                    if (qtdAtual == ESTRUTURA_AUXILIAR_VAZIA)
+                    {
+                        printf("Sem elementos");
+                    }
+                    else
+                    {
+                        int vetorAux[qtdAtual];
+                        ret = getDadosEstruturaAuxiliar(vetorPrincipal, pos, vetorAux, qtdAtual);
+
+                        for (int i = 0; i < qtdAtual; i++)
+                        {
+                            printf("%d", vetorAux[i]);
+                            if (i + 1 != qtdAtual)
+                            {
+                                printf(", ");
+                            }
+                        }
+                    }
+                }
+                printf("\n");
+            }
+
+            break;
+        }
+
         case INSERIR_ELEMENTO:
         {
             printf("Informe a posição da estrutura (entre 1 e 10): ");
@@ -156,60 +287,7 @@ int main()
             break;
         }
 
-        case LISTAR_ESTRUTURA:
-        {
-            printf("Informe a posição da estrutura a ser listada (entre 1 e 10): ");
-            int pos = getNumero();
-            printf("\n");
-
-            int qtd = getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, pos);
-
-            if (qtd == POSICAO_INVALIDA)
-            {
-                printf("Posição inválida\n");
-            }
-            else if (qtd == ESTRUTURA_AUXILIAR_VAZIA)
-            {
-                printf("Estrutura vazia\n");
-            }
-            else if (qtd == SEM_ESTRUTURA_AUXILIAR)
-            {
-                printf("Sem estrutura Auxiliar\n");
-            }
-            else
-            { // existe elemento
-                int vetorAux[qtd];
-
-                ret = getDadosEstruturaAuxiliar(vetorPrincipal, pos, vetorAux, qtd);
-
-                if (ret == SUCESSO)
-                {
-                    char opcaoUsuario[5];
-                    printf("Fazer listagem ordenada? [s/n]: ");
-                    fgets(opcaoUsuario, sizeof(opcaoUsuario), stdin);
-                    printf("\n");
-
-                    if (opcaoUsuario[0] == 's')
-                    {
-                        ordenaVetor(vetorAux, qtd);
-                    }
-
-                    // imprimir para os dados para o usuário
-                    for (int i = 0; i < qtd; i++)
-                    {
-                        printf("%d", vetorAux[i]);
-                        if (i + 1 < qtd)
-                        {
-                            printf(", ");
-                        }
-                    }
-                    printf("\n");
-                }
-            }
-            break;
-        }
-
-        case LISTAR_TODAS_ESTRUTURAS:
+        case LISTAR_TODOS_NUMEROS:
         {
             int qtdTotal = getQuantidadeTotalElementos(vetorPrincipal);
 
@@ -243,37 +321,6 @@ int main()
             }
             printf("\n");
 
-            break;
-        }
-
-        case AUMENTAR_TAMANHO:
-        {
-            printf("Informe a posição da estrutura: ");
-            int pos = getNumero();
-            printf("\n");
-
-            printf("Informe o quanto quer aumentar a estrutura: ");
-            int valorExtra = getNumero();
-            printf("\n");
-
-            ret = modificarTamanhoEstruturaAuxiliar(vetorPrincipal, pos, valorExtra);
-
-            if (ret == SUCESSO)
-            {
-                printf("Tamanho modificado com sucesso\n");
-            }
-            else if (ret == SEM_ESTRUTURA_AUXILIAR)
-            {
-                printf("Sem estrutura auxiliar\n");
-            }
-            else if (ret == POSICAO_INVALIDA)
-            {
-                printf("Posição inválida\n");
-            }
-            else if (ret == NOVO_TAMANHO_INVALIDO)
-            {
-                printf("Valor inválido. Estrutura deve ter tamanho maior que zero\n");
-            }
             break;
         }
 
