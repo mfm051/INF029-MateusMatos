@@ -6,6 +6,9 @@
 #include "EstruturaAux.h"
 
 void auxCriado();
+void auxCriadoComInput();
+void auxCriadoComInputTamanhoIncorreto();
+void auxCriadoComInputValoresIncorretos();
 void elementoInserido();
 void elementoNaoInserido();
 void elementoRemovido();
@@ -21,6 +24,9 @@ void ultimoElementoRemovido();
 int main()
 {
     auxCriado();
+    auxCriadoComInput();
+    auxCriadoComInputTamanhoIncorreto();
+    auxCriadoComInputValoresIncorretos();
     elementoInserido();
     elementoNaoInserido();
     elementoRemovido();
@@ -44,6 +50,44 @@ void auxCriado()
     printf("Auxiliar é criado: %d\n", sucesso);
 
     destroiAux(aux);
+}
+
+void auxCriadoComInput()
+{
+    char input[] = "1 10";
+    Aux *aux = NULL;
+    aux = criaAuxComInput(input);
+
+    printf("Auxiliar é criado com input:\n");
+
+    printf("\tCom sucesso: %d\n", aux != NULL);
+    printf("\tCom tamanho correto: %d\n", aux->tamanho == 1);
+    printf("\tCom quantidade correta de elementos: %d\n", aux->qtd == 1);
+    printf("\tCom valor correto: %d\n", aux->head->valor == 10);
+
+    destroiAux(aux);
+}
+
+void auxCriadoComInputTamanhoIncorreto()
+{
+    char input[] = "MIL 1 2 3";
+    Aux *aux = NULL;
+    aux = criaAuxComInput(input);
+
+    printf("Auxiliar NÃO é criado com input se tamanho não for válido: %d\n", aux == NULL);
+
+    destroiAux(aux);
+}
+
+void auxCriadoComInputValoresIncorretos()
+{
+    char input[] = "3 1 a b c 2 3 4";
+    Aux *aux = NULL;
+    aux = criaAuxComInput(input);
+
+    printf("Auxiliar é criado com input com valores inválidos:\n");
+    printf("\tIgnorando inválidos: %d\n", aux != NULL);
+    printf("\tIgnorando excedentes: %d\n", aux->qtd == 3 && !aux->head->proximo->proximo->proximo);
 }
 
 void elementoInserido()

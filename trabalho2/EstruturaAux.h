@@ -19,6 +19,7 @@ typedef struct Aux
 } Aux;
 
 Aux *criaAux(int tamanho);
+Aux *criaAuxComInput(char *input); /* Cria Aux a partir de string com informações */
 void destroiAux(Aux *aux);
 int insereElemento(Aux *aux, int valor);
 void removeElemento(Aux *aux, int valor);
