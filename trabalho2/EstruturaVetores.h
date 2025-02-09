@@ -68,5 +68,6 @@ int getPosicaoNoVetor(int inputPosicao);
 void destruirEstruturasAuxiliares(Aux *vetorPrincipal[TAM]);
 int getQuantidadeTotalElementos(Aux *vetorPrincipal[TAM]);
 void ordenaVetor(int *vetor, int tamanho);
+void criarEstruturaAuxiliarComInput(Aux *vetorPrincipal[TAM], char *input);
 
 #endif // TRABALHO2_ESTRUTURAVETORES_H

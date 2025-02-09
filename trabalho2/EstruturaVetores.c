@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "EstruturaVetores.h"
 
@@ -441,4 +442,42 @@ void ordenaVetor(int *vetor, int tamanho)
 void dobrar(int *x)
 {
     *x *= 2;
+}
+
+void criarEstruturaAuxiliarComInput(Aux *vetorPrincipal[TAM], char *input)
+{
+    /* Estrutura do input: POSIÇÃO TAMANHO NUM1 NUM2... */
+
+    char *numStr; /* Representa string do número atual */
+    char *fim;    /* Primeira posição não numérica de numStr */
+
+    /* Encontra posição do auxiliar */
+    numStr = strtok_r(input, " ", &input);
+    int pos = (int)strtol(numStr, &fim, 10);
+
+    /* Cancela se posição é inválida */
+    if (fim == numStr || (pos < 1 || pos > 10))
+        return;
+
+    /* Encontra tamanho do auxiliar */
+    numStr = strtok_r(input, " ", &input);
+    int tam = (int)strtol(numStr, &fim, 10);
+
+    /* Cancela se tamanho é inválido */
+    if (fim == numStr || tam <= 0)
+        return;
+
+    /* Tamanho e posição válidos, procede com criação da estrutura */
+    criarEstruturaAuxiliar(vetorPrincipal, pos, tam);
+    int num;
+
+    while ((numStr = strtok_r(input, " ", &input)))
+    {
+        num = (int)strtol(numStr, &fim, 10);
+
+        if (fim != numStr)
+        {
+            inserirNumeroEmEstrutura(vetorPrincipal, pos, num);
+        }
+    }
 }

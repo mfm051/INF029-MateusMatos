@@ -11,40 +11,6 @@ Aux *criaAux(int tamanho)
     return aux;
 }
 
-Aux *criaAuxComInput(char *input)
-{
-    /* Estrutura do input: TAMANHO NUM1 NUM2 NUM3... */
-
-    char *numStr; /* Representa string do número atual */
-    char *fim;    /* Primeira posição não numérica de numStr */
-
-    /* Encontra tamanho do auxiliar */
-    numStr = strtok_r(input, " ", &input);
-
-    /* Converte tamanho para inteiro de base 10 */
-    int tamanho = (int)strtol(numStr, &fim, 10);
-
-    /* Se "fim" não caminhou para depois de numStr, conversão foi mal-sucedida */
-    if (fim == numStr)
-        return NULL;
-
-    /* Achado tamanho, cria auxiliar com demais números */
-    Aux *aux = criaAux(tamanho);
-    int num;
-
-    while ((numStr = strtok_r(input, " ", &input)))
-    {
-        num = (int)strtol(numStr, &fim, 10);
-
-        if (fim != numStr)
-        {
-            insereElemento(aux, num);
-        }
-    }
-
-    return aux;
-}
-
 void destroiAux(Aux *aux)
 {
     if (!aux)

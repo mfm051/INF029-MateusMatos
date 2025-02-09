@@ -17,6 +17,7 @@ void testeMudarTamanhoEstrutura();
 // Testes adicionados pelo aluno
 void testeObterQuantidadeTotalNumeros();
 void testeDobrarNumero();
+void testeCriarEstruturasComTexto();
 
 int main()
 {
@@ -30,6 +31,7 @@ int main()
     testeMudarTamanhoEstrutura();
     testeObterQuantidadeTotalNumeros();
     testeDobrarNumero();
+    testeCriarEstruturasComTexto();
 }
 int ligado = 1;
 void show_log(char *str)
@@ -355,6 +357,8 @@ void testeObterQuantidadeTotalNumeros()
 
     printf("%d", getQuantidadeTotalElementos(vetorPrincipal) == 3);
     printf("\n");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
 
 void testeDobrarNumero()
@@ -374,4 +378,42 @@ void testeDobrarNumero()
     printf("%d ", outroNum == 0);
     printf("%d", maisUmNum == -2);
     printf("\n");
+}
+
+void testeCriarEstruturasComTexto()
+{
+    show_log("testeCriarEstruturasComTexto()");
+
+    Aux *vetorPrincipal[TAM] = {NULL};
+
+    char input1[] = "1 2 1 2";
+    char input2[] = "2 1";
+    char input3[] = "6 2 -1";
+    char input4[] = "9 5 1 2 -3 4 5";
+
+    criarEstruturaAuxiliarComInput(vetorPrincipal, input1);
+    criarEstruturaAuxiliarComInput(vetorPrincipal, input2);
+    criarEstruturaAuxiliarComInput(vetorPrincipal, input3);
+    criarEstruturaAuxiliarComInput(vetorPrincipal, input4);
+
+    /*
+    1 [1, 2]
+    2 [ ]
+    6 [-1, ]
+    9 [1, 2, -3, 4, 5]
+    */
+
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 1) == 2);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 2) == ESTRUTURA_AUXILIAR_VAZIA);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 3) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 4) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 5) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 6) == 1);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 7) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 8) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 9) == 5);
+    printf("%d", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 10) == SEM_ESTRUTURA_AUXILIAR);
+    printf("\n");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
 }
