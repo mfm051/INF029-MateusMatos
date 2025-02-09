@@ -18,6 +18,7 @@ void testeMudarTamanhoEstrutura();
 void testeObterQuantidadeTotalNumeros();
 void testeDobrarNumero();
 void testeCriarEstruturasComTexto();
+void testeImprimirEstruturasEmArquivo();
 
 int main()
 {
@@ -32,6 +33,7 @@ int main()
     testeObterQuantidadeTotalNumeros();
     testeDobrarNumero();
     testeCriarEstruturasComTexto();
+    testeImprimirEstruturasEmArquivo();
 }
 int ligado = 1;
 void show_log(char *str)
@@ -416,4 +418,42 @@ void testeCriarEstruturasComTexto()
     printf("\n");
 
     destruirEstruturasAuxiliares(vetorPrincipal);
+}
+
+void testeImprimirEstruturasEmArquivo()
+{
+    show_log("testeImprimirEstruturasEmArquivo()");
+    printf("Resultado do teste no arquivo testeEstruturas.txt\n");
+
+    FILE *arq = fopen("testeEstruturas.txt", "w");
+
+    Aux *vetorPrincipal[TAM] = {NULL};
+
+    criarEstruturaAuxiliar(vetorPrincipal, 1, 2);
+    criarEstruturaAuxiliar(vetorPrincipal, 2, 1);
+    criarEstruturaAuxiliar(vetorPrincipal, 6, 2);
+    criarEstruturaAuxiliar(vetorPrincipal, 9, 5);
+
+    inserirNumeroEmEstrutura(vetorPrincipal, 1, 1);
+    inserirNumeroEmEstrutura(vetorPrincipal, 1, 2);
+    inserirNumeroEmEstrutura(vetorPrincipal, 6, -1);
+    inserirNumeroEmEstrutura(vetorPrincipal, 9, 1);
+    inserirNumeroEmEstrutura(vetorPrincipal, 9, 2);
+
+    /*
+    1 [1, 2]
+    2 [ ]
+    6 [-1, ]
+    9 [1, 2, , , ]
+    */
+
+    imprimirEstruturasEmArquivo(vetorPrincipal, arq);
+    fprintf(arq, "\nApós rodar mainTeste.c, esse arquivo deve conter:\n"
+                 "1 2 1 2\n"
+                 "2 1\n"
+                 "6 2 -1\n"
+                 "9 5 1 2");
+
+    destruirEstruturasAuxiliares(vetorPrincipal);
+    fclose(arq);
 }

@@ -481,3 +481,37 @@ void criarEstruturaAuxiliarComInput(Aux *vetorPrincipal[TAM], char *input)
         }
     }
 }
+
+void imprimirEstruturasEmArquivo(Aux *vetorPrincipal[TAM], FILE *arq)
+{
+    Aux *aux;
+    Elemento *atual;
+
+    for (int i = 0; i < TAM; i++)
+    {
+        if (vetorPrincipal[i])
+        {
+            aux = vetorPrincipal[i];
+
+            fprintf(arq, "%d ", i + 1); /* Posição = i + 1 */
+            fprintf(arq, "%d", aux->tamanho);
+
+            atual = aux->head;
+
+            if (atual)
+                fprintf(arq, " ");
+
+            while (atual)
+            {
+                fprintf(arq, "%d", atual->valor);
+
+                if (atual->proximo)
+                    fprintf(arq, " ");
+
+                atual = atual->proximo;
+            }
+
+            fprintf(arq, "\n");
+        }
+    }
+}
