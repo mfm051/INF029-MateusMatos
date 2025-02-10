@@ -69,6 +69,7 @@ void destruirEstruturasAuxiliares(Aux *vetorPrincipal[TAM]);
 int getQuantidadeTotalElementos(Aux *vetorPrincipal[TAM]);
 void ordenaVetor(int *vetor, int tamanho);
 void criarEstruturaAuxiliarComInput(Aux *vetorPrincipal[TAM], char *input);
+void criarEstruturasComArquivo(Aux *vetorPrincipal[TAM], FILE *arq);
 void imprimirEstruturasEmArquivo(Aux *vetorPrincipal[TAM], FILE *arq);
 
 #endif // TRABALHO2_ESTRUTURAVETORES_H

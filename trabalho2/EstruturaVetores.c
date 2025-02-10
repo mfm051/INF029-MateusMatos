@@ -482,6 +482,19 @@ void criarEstruturaAuxiliarComInput(Aux *vetorPrincipal[TAM], char *input)
     }
 }
 
+void criarEstruturasComArquivo(Aux *vetorPrincipal[TAM], FILE *arq)
+{
+    char numeros[10000];
+
+    while (fgets(numeros, sizeof(numeros), arq))
+    {
+        /* Remove caractere de nova linha */
+        numeros[strcspn(numeros, "\n")] = 0;
+
+        criarEstruturaAuxiliarComInput(vetorPrincipal, numeros);
+    }
+}
+
 void imprimirEstruturasEmArquivo(Aux *vetorPrincipal[TAM], FILE *arq)
 {
     Aux *aux;

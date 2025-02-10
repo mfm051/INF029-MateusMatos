@@ -17,7 +17,7 @@ void testeMudarTamanhoEstrutura();
 // Testes adicionados pelo aluno
 void testeObterQuantidadeTotalNumeros();
 void testeDobrarNumero();
-void testeCriarEstruturasComTexto();
+void testeCriarEstruturasComArquivo();
 void testeImprimirEstruturasEmArquivo();
 
 int main()
@@ -32,7 +32,7 @@ int main()
     testeMudarTamanhoEstrutura();
     testeObterQuantidadeTotalNumeros();
     testeDobrarNumero();
-    testeCriarEstruturasComTexto();
+    testeCriarEstruturasComArquivo();
     testeImprimirEstruturasEmArquivo();
 }
 int ligado = 1;
@@ -382,50 +382,59 @@ void testeDobrarNumero()
     printf("\n");
 }
 
-void testeCriarEstruturasComTexto()
+void testeCriarEstruturasComArquivo()
 {
-    show_log("testeCriarEstruturasComTexto()");
+    show_log("testeCriarEstruturasComArquivo()");
 
-    Aux *vetorPrincipal[TAM] = {NULL};
+    /* Setup arquivo teste */
+    FILE *arq = fopen("testeEstruturas", "w");
+    fprintf(arq, "1 3 0 0 0\n"
+                 "3 1\n"
+                 "6 2 -1 2\n"
+                 "10 5 1 2\n");
+    fclose(arq);
 
-    char input1[] = "1 2 1 2";
-    char input2[] = "2 1";
-    char input3[] = "6 2 -1";
-    char input4[] = "9 5 1 2 -3 4 5";
+    arq = fopen("testeEstruturas", "r");
 
-    criarEstruturaAuxiliarComInput(vetorPrincipal, input1);
-    criarEstruturaAuxiliarComInput(vetorPrincipal, input2);
-    criarEstruturaAuxiliarComInput(vetorPrincipal, input3);
-    criarEstruturaAuxiliarComInput(vetorPrincipal, input4);
+    Aux *vetorPrincipal[10] = {NULL};
+
+    criarEstruturasComArquivo(vetorPrincipal, arq);
 
     /*
-    1 [1, 2]
-    2 [ ]
-    6 [-1, ]
-    9 [1, 2, -3, 4, 5]
+    1 [0, 0, 0]
+    3 [ ]
+    6 [-1, 2]
+    10 [1, 2, , , ]
     */
 
-    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 1) == 2);
-    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 2) == ESTRUTURA_AUXILIAR_VAZIA);
-    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 3) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 1) == 3);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 2) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 3) == ESTRUTURA_AUXILIAR_VAZIA);
     printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 4) == SEM_ESTRUTURA_AUXILIAR);
     printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 5) == SEM_ESTRUTURA_AUXILIAR);
-    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 6) == 1);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 6) == 2);
     printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 7) == SEM_ESTRUTURA_AUXILIAR);
     printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 8) == SEM_ESTRUTURA_AUXILIAR);
-    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 9) == 5);
-    printf("%d", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 10) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 9) == SEM_ESTRUTURA_AUXILIAR);
+    printf("%d ", getQuantidadeElementosEstruturaAuxiliar(vetorPrincipal, 10) == 2);
     printf("\n");
 
     destruirEstruturasAuxiliares(vetorPrincipal);
+    fclose(arq);
 }
 
 void testeImprimirEstruturasEmArquivo()
 {
     show_log("testeImprimirEstruturasEmArquivo()");
-    printf("Resultado do teste no arquivo testeEstruturas.txt\n");
 
-    FILE *arq = fopen("testeEstruturas.txt", "w");
+    printf("Resultado do teste no arquivo testeEstruturas\n");
+    printf("O arquivo deve conter:\n"
+           "1 2 1 2\n"
+           "2 1\n"
+           "6 2 -1\n"
+           "9 5 1 2\n");
+
+    FILE *arq = fopen("testeEstruturas", "w");
 
     Aux *vetorPrincipal[TAM] = {NULL};
 
@@ -448,11 +457,6 @@ void testeImprimirEstruturasEmArquivo()
     */
 
     imprimirEstruturasEmArquivo(vetorPrincipal, arq);
-    fprintf(arq, "\nApós rodar mainTeste.c, esse arquivo deve conter:\n"
-                 "1 2 1 2\n"
-                 "2 1\n"
-                 "6 2 -1\n"
-                 "9 5 1 2");
 
     destruirEstruturasAuxiliares(vetorPrincipal);
     fclose(arq);
