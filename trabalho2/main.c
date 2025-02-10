@@ -3,6 +3,8 @@
 
 #include "EstruturaVetores.h"
 
+const char BACKUP_ESTRUTURAS[] = "estruturas";
+
 enum
 {
     SAIR = 1,
@@ -15,8 +17,6 @@ enum
     LISTAR_TODOS_NUMEROS,
     DOBRAR_NUMERO
 };
-
-// void dobrar(int *x);
 
 void printMenu()
 {
@@ -47,6 +47,16 @@ int getNumero()
 int main()
 {
     Aux *vetorPrincipal[TAM] = {NULL};
+    FILE *estruturas;
+
+    estruturas = fopen(BACKUP_ESTRUTURAS, "r");
+
+    if (estruturas)
+    {
+        criarEstruturasComArquivo(vetorPrincipal, estruturas);
+        printf("\nEstruturas recuperadas com sucesso\n");
+        fclose(estruturas);
+    }
 
     // inicializar();
     int op;
@@ -63,7 +73,15 @@ int main()
         case SAIR:
         {
             sair = 1;
-            // finalizar();
+
+            estruturas = fopen(BACKUP_ESTRUTURAS, "w");
+            if (estruturas)
+            {
+                imprimirEstruturasEmArquivo(vetorPrincipal, estruturas);
+                printf("\nEstruturas salvas com sucesso\n");
+                fclose(estruturas);
+            }
+
             break;
         }
 
