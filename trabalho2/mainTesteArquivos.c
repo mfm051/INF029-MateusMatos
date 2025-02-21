@@ -14,11 +14,15 @@ void testeListar();
 void testeRetornarTodosNumeros();
 void testeMudarTamanhoEstrutura();
 void testeListaEncadeada();
+void testarArquivoPrimeiraVez();
+void testarArquivoSegundaVez();
 
 int main()
 {
     inicializar();
-    testeInserirSemNada();
+    testarArquivoPrimeiraVez();
+    testarArquivoSegundaVez();
+    /* testeInserirSemNada();
     testeCriarEstrutura();
     testeInserirComEstrutura();
     testeExcluir();
@@ -26,14 +30,57 @@ int main()
     testeListar();
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
-    testeListaEncadeada();
+    testeListaEncadeada(); */
     finalizar();
 }
-int ligado = 1;
+int ligado = 0;
 void show_log(char *str)
 {
     if (ligado)
         printf("###%s###\n", str);
+}
+int posicoes[] = {2, 5, 7};
+int tamanhos[] = {8, 4, 6};
+int valores[] = {1, 40, 60, -6, -7, 5, 9, 32};
+
+void testarArquivoPrimeiraVez()
+{
+    show_log("testarArquivoPrimeiraVez()");
+    // arquivo não existe
+    criarEstruturaAuxiliar(posicoes[0], tamanhos[0]);
+    inserirNumeroEmEstrutura(posicoes[0], valores[0]);
+    inserirNumeroEmEstrutura(posicoes[0], valores[1]);
+
+    criarEstruturaAuxiliar(posicoes[1], tamanhos[1]);
+    inserirNumeroEmEstrutura(posicoes[1], valores[2]);
+    inserirNumeroEmEstrutura(posicoes[1], valores[3]);
+    inserirNumeroEmEstrutura(posicoes[1], valores[4]);
+
+    criarEstruturaAuxiliar(posicoes[2], tamanhos[2]);
+    inserirNumeroEmEstrutura(posicoes[2], valores[5]);
+    inserirNumeroEmEstrutura(posicoes[2], valores[6]);
+    inserirNumeroEmEstrutura(posicoes[2], valores[7]);
+}
+
+void testarArquivoSegundaVez()
+{
+    show_log("testarArquivoSegundaVez()");
+    int vet[2];
+    getDadosEstruturaAuxiliar(posicoes[0], vet);
+    printf("%d\n", vet[0] == valores[0]);
+    printf("%d\n", vet[1] == valores[1]);
+
+    int vet2[3];
+    getDadosEstruturaAuxiliar(posicoes[1], vet2);
+    printf("%d\n", vet2[0] == valores[2]);
+    printf("%d\n", vet2[1] == valores[3]);
+    printf("%d\n", vet2[2] == valores[4]);
+
+    int vet3[3];
+    getDadosEstruturaAuxiliar(posicoes[2], vet3);
+    printf("%d\n", vet3[0] == valores[5]);
+    printf("%d\n", vet3[1] == valores[6]);
+    printf("%d\n", vet3[2] == valores[7]);
 }
 
 void testeInserirSemNada()
